@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { JobRoles } from "../models/JobRoles"
+import { JobRolesResponse } from "../models/JobRolesResponse";
 
-export const getJobRoles = async (): Promise<JobRoles> => {
+export const getJobRoles = async (): Promise<JobRolesResponse[]> => {
     try {
         const response: AxiosResponse = await axios.get("http://localhost:8080/api/job-roles");
 
