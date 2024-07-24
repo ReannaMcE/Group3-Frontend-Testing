@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { JobRoles } from "../models/JobRoles"
 import { JobRolesResponse } from "../models/JobRolesResponse";
 
 export const getJobRoles = async (): Promise<JobRolesResponse[]> => {
