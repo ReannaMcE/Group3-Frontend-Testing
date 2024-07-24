@@ -37,4 +37,4 @@ app.listen(3000, () => {
 });
 
 app.get('/homepage' , getHomePage)
-
+app.get('/jobRoles', getAllJobRoles);
