@@ -9,12 +9,6 @@ import { dateFilter } from "./filter/DateFilter";
 
 const app = express();
 
-
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app
-});
-
 const env = nunjucks.configure('views',{
   autoescape: true,
   express: app
@@ -43,4 +37,4 @@ app.listen(3000, () => {
 });
 
 app.get('/homepage' , getHomePage)
-app.get('/jobRoles', getAllJobRoles);
+
