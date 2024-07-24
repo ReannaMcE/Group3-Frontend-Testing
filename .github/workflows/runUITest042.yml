@@ -1,0 +1,36 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      # Checks out the repository so the workflow can access the code
+
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '1.8'
+        # Sets up Java Development Kit version 1.8 for the build environment
+
+    - name: Verify Maven Installation
+      run: mvn -B --version
+      # Optional: Verifies Maven is installed and available for use
+
+    - name: Build and Test with Maven
+      run: mvn clean test
+      # Runs Maven to clean the build environment and then execute tests
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: target/surefire-reports
+        # Uploads the test results from the target/surefire-reports directory
