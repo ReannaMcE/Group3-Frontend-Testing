@@ -16,7 +16,7 @@ nunjucks.configure('views', {
 const env = nunjucks.configure('views',{
   autoescape: true,
   express: app
-} )
+} );
 
 env.addFilter('date', dateFilter);
 

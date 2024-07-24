@@ -1,3 +1,4 @@
+//import { getJobRoles as JobRoleService }  from "../../../src/services/JobRoleService";
 import * as JobRoleService from "../../../src/services/JobRoleService";
 import { expect } from 'chai';
 import { JobRolesResponse } from "../../../src/models/JobRolesResponse";
@@ -26,17 +27,18 @@ describe('RoleContoller', function () {
       it('should render view with job roles when job roles returned', async () => {
         const jobRolesList = [jobRolesResponse];
 
-        sinon.stub(JobRoleService, 'getJobRoles').resolves(jobRolesList);
+        const stub = sinon.stub(JobRoleService, 'getJobRoles').resolves(jobRolesList);
 
         const req = { };
         const res = { render: sinon.spy() };
 
         await RoleController.getAllJobRoles(req as any, res as any);
 
-        console.log("here");
-
         expect(res.render.calledOnce).to.be.true;
-        expect(res.render.calledWith('jobRolesList', { jobRoles: jobRolesList })).to.be.true;
+        console.log(expect(res.render.calledWith('jobRolesList.html', { jobRoles: jobRolesList })).to.be.true)
+        expect(res.render.calledWith('jobRolesList.html', { jobRoles: jobRolesList })).to.be.true;
+
+        stub.restore;
       });
 
       it('should render view with error message when error thrown', async () => {
@@ -49,7 +51,7 @@ describe('RoleContoller', function () {
         await RoleController.getAllJobRoles(req as any, res as any);
 
         expect(res.render.calledOnce).to.be.true;
-        expect(res.render.calledWith('jobRolesList')).to.be.true;
+        expect(res.render.calledWith('jobRolesList.html')).to.be.true;
         expect(res.locals.errormessage).to.equal(errorMessage);
       });
     });
