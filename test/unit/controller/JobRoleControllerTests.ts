@@ -8,6 +8,7 @@ import * as RoleController from "../../../src/controllers/RoleController";
 const testDate = new Date(1721718000000);
 
 const jobRolesResponse: JobRolesResponse = {
+    id:1,
     roleName: "TechLead",
     location: "Belfast",
     capability: "High",

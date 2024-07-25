@@ -2,12 +2,13 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRolesResponse } from "../../../src/models/JobRolesResponse";
-import { getJobRoles } from "../../../src/services/JobRoleService";
+import { getJobRoles, URL } from "../../../src/services/JobRoleService";
 
 
 const testDate = new Date(1721718000000);
 
 const jobRolesResponse: JobRolesResponse = {
+    id: 1,
     roleName: "TechLead",
     location: "Belfast",
     capability: "High",
@@ -23,10 +24,11 @@ describe('JobRoleService', function () {
       it('should return jobRoles from response', async () => {
         const data = [jobRolesResponse];
 
-        mock.onGet("http://localhost:8080/api/job-roles").reply(200, data);
+        mock.onGet(URL).reply(200, data);
 
         const results = await getJobRoles();
 
+        expect(results[0].id).to.deep.equal(jobRolesResponse.id);
         expect(results[0].band).to.deep.equal(jobRolesResponse.band);
         expect(results[0].capability).to.deep.equal(jobRolesResponse.capability);
         expect(results[0].closingDate).to.deep.equal(jobRolesResponse.closingDate.toISOString());
@@ -36,10 +38,11 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
-        mock.onGet("http://localhost:8080/api/job-roles").reply(500);
+        mock.onGet(URL).reply(500);
 
         try {
           await getJobRoles();
+          throw new Error('Error not thrown');
         } catch (e) {
           expect(e.message).to.equal('Failed to get Job Roles');
           return;
