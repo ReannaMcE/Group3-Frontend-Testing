@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRolesResponse } from "../../../src/models/JobRolesResponse";
-import { getJobRoles, URL } from "../../../src/services/JobRoleService";
+import { getJobRoles } from "../../../src/services/JobRoleService";
 
 
 const testDate = new Date(1721718000000);
@@ -23,7 +23,7 @@ describe('JobRoleService', function () {
       it('should return jobRoles from response', async () => {
         const data = [jobRolesResponse];
 
-        mock.onGet(URL).reply(200, data);
+        mock.onGet("http://localhost:8080/api/job-roles").reply(200, data);
 
         const results = await getJobRoles();
 

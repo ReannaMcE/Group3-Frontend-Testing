@@ -1,8 +1,8 @@
 export type JobRoles = {
-    roleName: String,
-    location: String,
-    capability: String,
-    band: String,
+    roleName: string,
+    location: string,
+    capability: string,
+    band: string,
     closingDate: Date,
-    status: String
+    status: string
 }

@@ -2,7 +2,6 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
-import { dateFilter } from "./filters";
 
 import { getAllJobRoles } from "./controllers/RoleController";
 
@@ -12,13 +11,6 @@ nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
-
-const env = nunjucks.configure('views',{
-  autoescape: true,
-  express: app
-} );
-
-env.addFilter('date', dateFilter);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
