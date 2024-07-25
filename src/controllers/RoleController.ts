@@ -6,6 +6,10 @@ export const getHomePage = async (req: express.Request, res: express.Response): 
 }
  
 export const getAllJobRoles = async (req: express.Request, res: express.Response): Promise<void> => {
-    res.render('jobRolesList.html', {roles: await getJobRoles() });
-}
-
+    try {
+        res.render('jobRolesList.html', { roles: await getJobRoles() });
+    } catch (e) {
+        res.locals.errormessage = e.message;
+        res.render('jobRolesList.html');
+    }
+};
