@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JobRoles List</title>
+    </head>
+    <body>
+        <h1>
+            Job Roles
+        </h1>
+        <table>
+            <tr>
+                <th>Role Name</th>
+                <th>Location</th>
+                <th>Capability</th>
+                <th>band</th>
+                <th>closingDate</th>
+                <th>Status</th>
+            </tr>
+            {% for jobRole in roles %}
+                <tr>
+                    <td>{{ jobRole.roleName }}</td>
+                    <td>{{ jobRole.location }}</td>
+                    <td>{{ jobRole.capability }}</td>
+                    <td>{{ jobRole.band }}</td>
+                    <td>{{ jobRole.closingDate }}</td>
+                    <td>{{ jobRole.status }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
