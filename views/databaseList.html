@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <p>
+            Database List
+        </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Databases</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for database in databases %}
+        <tr>
+          <th scope="row">{{ database }}</a></th>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+    </body>
+</html>
