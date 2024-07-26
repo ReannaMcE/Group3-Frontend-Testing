@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
 
     <head>
         <link rel="stylesheet" type="text/css" href="./css/style.css">
@@ -21,7 +21,7 @@
                 <ul> 
                     {% for jobRole in roles %}
                     <li> 
-                        <h2 style="font-size:235%;">{{ jobRole.roleName }}</h2> 
+                        <h3 style="font-size:235%;">{{ jobRole.roleName }}</h3> 
                         <h4 style="font-family:''Galano Grotesque', sans-serif';"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
                         <p><b>Capability: </b>{{ jobRole.capability }}</p> 
                         <p><b>Band: </b>{{ jobRole.band }}</p> 

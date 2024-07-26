@@ -62,8 +62,6 @@ width:80px
 
 }
 
-
-
 /* Container holding the image and the text */
 .container {
 position: relative;
@@ -93,8 +91,8 @@ position:relative;
 left: 19vw;
 top:25px;
 
-
 }
+
 
 .footer-basic {
 padding:40px 0;
