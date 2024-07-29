@@ -26,14 +26,15 @@ describe('View Job Roles Test', function () {
         }
     });
 
+    
     it('Job roles page should load', async function () {
         const url: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
         await viewJobRolesPage.open(url);
 
        // check here that things display on the view job roles page- buttons, titles etc
 
-        //const actualText = await viewJobRolesPage.getSuccessMessageText();
-        //expect(actualText).to.equal('Together we write our story...');
+        const actualText = await viewJobRolesPage.getTitleText();
+        expect(actualText).to.equal('Available Job Roles');
     });
 
 // Test case: Verify that the facebook link redirects to facebook
@@ -50,3 +51,6 @@ describe('View Job Roles Test', function () {
         driver.quit();
     });
 });
+
+
+
