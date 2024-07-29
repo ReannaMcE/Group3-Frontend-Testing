@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import session from "express-session";
 
 import { getAllJobRoles } from "./controllers/RoleController";
+import { getLoginForm, postLoginForm } from "./controllers/AuthController";
 
 const app = express();
 
@@ -30,3 +31,5 @@ app.listen(3000, () => {
 });
 
 app.get('/jobRoles', getAllJobRoles);
+app.get('/loginForm', getLoginForm);
+app.post('/loginForm', postLoginForm);
