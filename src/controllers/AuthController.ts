@@ -11,6 +11,6 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
         res.redirect('/homepage');
     } catch (e) {
         res.locals.errormessage = e.message;
-        res.render('loginForm.html', req.body);
+        res.render('loginForm.html', { ...req.body, errormessage: res.locals.errormessage });
     }
 }
