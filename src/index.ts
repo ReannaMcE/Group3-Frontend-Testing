@@ -1,1 +1,1 @@
-export const base = process.env.AWS_URL || 'http://localhost:8080';
+export const base = process.env.AWS_URL || 'http://localhost:3000';
