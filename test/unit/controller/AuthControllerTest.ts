@@ -14,11 +14,10 @@ describe('AuthController', function () {
 
     describe('getLoginForm', function () {
       it('should login successfully with genuine credentials', async () => {
-        const stub = sinon.stub(AuthService, 'getToken').resolves(mockToken);
         const req = { body: {username: "user", password: "user" }, session: {token: ""}};
         const res = {redirect: sinon.spy(), render: sinon.spy()};
 
-        await AuthController.postLoginForm(req as any, res as any);
+        await AuthController.postLoginForm(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
         expect(mockToken == req.session.token).to.be.true;
         expect(res.redirect.calledOnce).to.be.true;
@@ -28,7 +27,7 @@ describe('AuthController', function () {
         const res = {redirect: sinon.spy(), render: sinon.spy()};
         const req = { body: {username: "user", password: "user" }, session: {token: ""}};
 
-        await AuthController.getLoginForm(req as any, res as any);
+        await AuthController.getLoginForm(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
         expect(res.render.calledOnce).to.be.true;
         expect(res.render.calledWith('loginForm.html'));
@@ -42,7 +41,7 @@ describe('AuthController', function () {
         sinon.stub(AuthService, 'getToken').rejects(new Error(errorMessage));
 
         
-        await AuthController.postLoginForm(req as any, res as any);
+        await AuthController.postLoginForm(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
         expect(res.render.calledOnce).to.be.true;
         expect(res.render.calledWith('loginForm.html')).to.be.true;

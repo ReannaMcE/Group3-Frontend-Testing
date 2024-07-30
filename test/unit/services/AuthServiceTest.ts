@@ -1,4 +1,3 @@
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { getToken } from "../../../src/services/AuthService";
 import { LoginRequest } from '../../../src/models/LoginRequest';
