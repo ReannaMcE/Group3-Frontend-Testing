@@ -1,3 +1,26 @@
+<script>
+  async function logout() {
+      try {
+          const response = await fetch('/api/auth/logout', {
+              method: 'POST',
+              credentials: 'same-origin'
+          });
+
+          if (response.ok) {
+              document.getElementById('message').innerText = 'You have been logged out successfully.';
+              setTimeout(() => {
+                  window.location.href = '/loginForm';
+              }, 2000);
+          } else {
+              document.getElementById('message').innerText = 'Failed to log out.';
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('message').innerText = 'An error occurred.';
+      }
+  }
+</script>
+
 <nav class="header">
     <div class="headerformat">
         <div class="middle">
