@@ -1,9 +1,11 @@
 import { Builder, By, WebDriver } from 'selenium-webdriver';
 import { expect } from 'chai';
 import * as chrome from 'selenium-webdriver/chrome';
+import { ViewJobRolesTestsPage } from './ViewJobRolesTestsPage';
 
 describe('View Job Roles Tests', function () {
     let driver: WebDriver;
+    let viewRolesPage: ViewJobRolesTestsPage;
 
     before(async function () {
         driver = new Builder()
