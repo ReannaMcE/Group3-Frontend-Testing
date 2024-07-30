@@ -19,18 +19,23 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-        {% if errormessage %}
-            <h3>{{ errormessage }}</h3>
-        {% endif %}
             <div class="container">
                 <div class="screen">
                     <div class="screen__content">
+                    
                         <form class="form" action="/loginForm" method="post">
+                            {% if errormessage %}
+            <div class="error-container">
+                <p class="error-message">{{ errormessage }}</p>
+            </div>
+        {% endif %}
                             <div class="login__field">
                                 <i class="fa-solid fa-envelope" style = "color: #252d4f;"></i>
                                 <input id="username" name="username" value="{{username}}" type="text" class="login__input" placeholder="Email">
                              
                             </div>
+                            
+                           
                             <div class="login__field">
                                 <i class="fa-solid fa-lock" style = "color: #252d4f;"></i>
                                 <input id="password" name="password" value="{{password}}" type="password" class="login__input" placeholder="Password">
@@ -49,5 +54,5 @@
             </div>
     
      </body>
-     {% include "footer.html" %}
+
 </html>
