@@ -1,11 +1,13 @@
-import { Builder, By, WebDriver, WebElement } from 'selenium-webdriver';
+import { Builder, By, WebDriver, WebElement, until } from 'selenium-webdriver';
 import { expect } from 'chai';
 import * as chrome from 'selenium-webdriver/chrome';
 
 export class ViewJobRolesTestsPage {
 
+
+    // WebElements ----------------------------------------------------------------------------------------------------------
     public static async Title(driver: WebDriver): Promise<WebElement> {
-        const element: WebElement = await driver.findElement(By.xpath("//h2[normalize-space()='Available Job Roles']"))
+        const element: WebElement = await driver.findElement(By.xpath("//h2[normalize-space()='Available Job Roles']"));
         return element;
     }
 
@@ -42,5 +44,21 @@ export class ViewJobRolesTestsPage {
     //     return element;
     // }
 
+
+
+    // Click Methods --------------------------------------------------------------------------------------------------------
+
+    public static async clickFacebook(driver: WebDriver): Promise<void> {
+        try {
+            // Wait for the Facebook link to be clickable before clicking
+            const facebookLink: WebElement = await this.FacebookLink(driver);
+            await driver.wait(until.elementIsVisible(facebookLink), 10000); // Wait up to 10 seconds
+            await facebookLink.click();
+        } catch (error) {
+            console.error('Error clicking the Facebook link:', error);
+            throw error; // Rethrow error to ensure test fails properly
+        }
+    
+    }
 }
 

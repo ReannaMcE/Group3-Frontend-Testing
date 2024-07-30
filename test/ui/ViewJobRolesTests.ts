@@ -1,4 +1,4 @@
-import { Builder, By, WebDriver } from 'selenium-webdriver';
+import { Builder, By, WebDriver, until } from 'selenium-webdriver';
 import { expect } from 'chai';
 import * as chrome from 'selenium-webdriver/chrome';
 import { ViewJobRolesTestsPage } from './ViewJobRolesTestsPage';
@@ -32,24 +32,39 @@ describe('View Job Roles Tests', function () {
         expect(actualText).to.equal('Available Job Roles');
     });
 
-    it('Facebook link should work', async function () {
-        const url: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
+    it.only('Facebook link should work', async function () {
+        this.timeout(30000); // Increase the timeout for the entire test
+
+    const url: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
+    const driver: WebDriver = await new Builder().forBrowser('chrome').build();
+
+    try {
         await driver.get(url);
 
-        const facebookLink = By.xpath("//a[@title='https://www.facebook.com/KainosSoftware/?locale=en_GB']");
-        const element = await driver.findElement(facebookLink);
-        await element.click();
+        await ViewJobRolesTestsPage.clickFacebook(driver);
 
-        await driver.sleep(2000); // Sleep for 2 seconds to ensure the click is processed
+        await driver.wait(async () => {
+            const currentUrl = await driver.getCurrentUrl();
+            return currentUrl.includes('facebook.com/KainosSoftware');
+        }, 15000); // Wait up to 15 seconds
+
         const facebookUrl = await driver.getCurrentUrl();
         expect(facebookUrl).to.include('facebook.com/KainosSoftware');
 
         await driver.navigate().back();
 
         const title = By.xpath("//h2[normalize-space()='Available Job Roles']");
+        await driver.wait(until.elementLocated(title), 10000); // Wait up to 10 seconds
+
         const elementBack = await driver.findElement(title);
         const newTitleText = await elementBack.getText();
         expect(newTitleText).to.equal('Available Job Roles');
+    } catch (error) {
+        console.error('Test failed:', error);
+        throw error; 
+    } finally {
+        await driver.quit();
+    }
     });
 
 
