@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRolesResponse } from "../../../src/models/JobRolesResponse";
-import { getJobRoles, URL } from "../../../src/services/JobRoleService";
+import { getJobRoles, URL} from "../../../src/services/JobRoleService";
 
 
 const testDate = new Date(1721718000000);

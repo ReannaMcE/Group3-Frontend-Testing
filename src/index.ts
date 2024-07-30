@@ -1,1 +1,5 @@
-export const base = process.env.AWS_URL || 'http://localhost:3000';
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.API_URL || 'http://localhost:8080';
+
+export default URL;
