@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+ 
+    <head>
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/jobRolesListStyle.css">
+        <title>Job Roles</title>
+        <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+    </head>
+ 
+    <body>
+        {% include "header.html" %}
+            <section class="job-roles">
+
+                {% if jobRole %}
+                <h2 style = "text-align: center;">{{ jobRole.roleName }}</h2>
+                <ul>
+                    <li>
+                       <h4 style="font-family:''Galano Grotesque', sans-serif';"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
+ 
+                        <h3>Description</h3>
+                        <p>{{ jobRole.description }}</p>
+ 
+                        <h3>Responsibilties</h3>
+                        <p>{{ jobRole.responsibilities }}</p>
+ 
+                        <p>{{ jobRole.jobSpec }}</p>
+                        <p><b>Capability: </b>{{ jobRole.capability }}</p>
+                        <p><b>Band: </b>{{ jobRole.band }}</p>
+                        <p><b>Closing Date:</b> {{ jobRole.closingDate | date }}</p>
+                        
+                    </li>
+                </ul>
+                {% else %}
+                Job Role does not exist 
+                {% endif %}
+              
+            </section>
+            {% include "footer.html" %}
+    </body>
+</html>
+ 
