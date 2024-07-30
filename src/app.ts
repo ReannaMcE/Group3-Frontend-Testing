@@ -6,6 +6,7 @@ import session from "express-session";
 import { getLoginForm, postLoginForm } from "./controllers/AuthController";
 import { getAllJobRoles, getHomePage } from "./controllers/RoleController";
 import { dateFilter } from "./filter/DateFilter";
+import  AuthRoutes from "./Routes/AuthRoutes";
 
 
 const app = express();
@@ -26,6 +27,8 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
+
+app.use(AuthRoutes);
 
 declare module "express-session" {
   interface SessionData {
