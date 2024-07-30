@@ -1,75 +1,59 @@
-// import express from 'express';
-// import { getToken } from "../../../src/services/AuthService";
-// import { getLoginForm, postLoginForm } from '../../../src/controllers/AuthController';
-// import { expect } from 'chai';
+import sinon from "sinon";
+import * as AuthService from "../../../src/services/AuthService";
+import * as AuthController from "../../../src/controllers/AuthController";
 
-// jest.mock('../services/AuthService');
+import { render } from "nunjucks";
+import { expect } from "chai";
 
-// // Create a mock response object
-// const mockResponse = (): express.Response => {
-//     const res: any = {};
-//     res.render = jest.fn().mockReturnValue(res);
-//     res.redirect = jest.fn().mockReturnValue(res);
-//     res.locals = {};
-//     return res;
-// };
 
-// // Create a mock request object
-// const mockRequest = (body: any = {}, session: any = {}): express.Request => {
-//     return {
-//         body,
-//         session,
-//     } as express.Request;
-// };
 
-// describe('AuthController', () => {
-//     describe('getLoginForm', () => {
-//         it('should render the login form', async () => {
-//             // Arrange
-//             const req = mockRequest();
-//             const res = mockResponse();
+const mockToken = "mockedtoken";
 
-//             // Act
-//             await getLoginForm(req, res);
 
-//             // Assert
-//             expect(res.render).toHaveBeenCalledWith('loginForm.html');
-//         });
-//     });
 
-//     describe('postLoginForm', () => {
-//         it('should set session token and redirect on successful login', async () => {
-//             // Arrange
-//             const reqBody = { username: 'testuser', password: 'password123' };
-//             const req = mockRequest(reqBody, {});
-//             const res = mockResponse();
-//             const mockToken = 'mocked-token';
-//             (getToken as jest.Mock).mockResolvedValue(mockToken);
+describe('AuthController', function () {
+    afterEach(() => {
+        sinon.restore();
+    });
 
-//             // Act
-//             await postLoginForm(req, res);
+    describe('getLoginForm', function () {
+      it('should login successfully with genuine credentials', async () => {
+        const stub = sinon.stub(AuthService, 'getToken').resolves(mockToken);
+        const req = { body: {username: "user", password: "user" }, session: {token: ""}};
+        const res = {redirect: sinon.spy(), render: sinon.spy()};
 
-//             // Assert
-//             expect(getToken).toHaveBeenCalledWith(reqBody);
-//             expect(req.session.token).toBe(mockToken);
-//             expect(res.redirect).toHaveBeenCalledWith('/jobRoles');
-//         });
+        await AuthController.postLoginForm(req as any, res as any);
 
-//         it('should render login form with error message on failed login', async () => {
-//             // Arrange
-//             const reqBody = { username: 'testuser', password: 'wrongpassword' };
-//             const req = mockRequest(reqBody, {});
-//             const res = mockResponse();
-//             const mockErrorMessage = 'Invalid credentials';
-//             (getToken as jest.Mock).mockRejectedValue(new Error(mockErrorMessage));
+        expect(mockToken == req.session.token).to.be.true;
+        expect(res.redirect.calledOnce).to.be.true;
 
-//             // Act
-//             await postLoginForm(req, res);
+        stub.restore();
+      });
 
-//             // Assert
-//             expect(getToken).toHaveBeenCalledWith(reqBody);
-//             expect(res.locals.errormessage).toBe(mockErrorMessage);
-//             expect(res.render).toHaveBeenCalledWith('loginForm.html', reqBody);
-//         });
-//     });
-// });
+      it('should render the login form', async () => {
+        const res = {redirect: sinon.spy(), render: sinon.spy()};
+        const req = { body: {username: "user", password: "user" }, session: {token: ""}};
+
+        await AuthController.getLoginForm(req as any, res as any);
+
+        expect(res.render.calledOnce).to.be.true;
+        expect(res.render.calledWith('loginForm.html'));
+        });
+
+      it('should throw an error when login fails with incorrect credentiatls', async () => { 
+        const res = {redirect: sinon.spy(), render: sinon.spy(), locals: { errormessage: ''}};
+        const req = { body: {username: "wronguser", password: "wrongpassword" }, session: {token: ""}};
+        
+        const errorMessage: string = 'Error message';
+        sinon.stub(AuthService, 'getToken').rejects(new Error(errorMessage));
+
+        
+        await AuthController.getLoginForm(req as any, res as any);
+
+        expect(res.render.calledOnce).to.be.true;
+        expect(res.render.calledWith('loginForm.html')).to.be.true;
+        expect(res.locals.errormessage).to.equal(errorMessage);
+
+      });
+    });
+});

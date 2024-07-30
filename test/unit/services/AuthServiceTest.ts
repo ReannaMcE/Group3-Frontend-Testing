@@ -3,9 +3,15 @@ import MockAdapter from 'axios-mock-adapter';
 import { getToken } from "../../../src/services/AuthService";
 import { LoginRequest } from '../../../src/models/LoginRequest';
 import { expect } from 'chai';
+import { requestInstance } from '../../../src/models';
+
+const loginRequest: LoginRequest = { 
+    username: "testuser", 
+    password: "password123" 
+};
 
 // Initialize the mock adapter
-const mock = new MockAdapter(axios);
+const mock = new MockAdapter(requestInstance);
 
 describe('getToken', () => {
     afterEach(() => {
@@ -15,15 +21,13 @@ describe('getToken', () => {
 
     it('should return a token when login is successful', async () => {
         // Arrange
-        const loginRequest: LoginRequest = { username: 'testuser', password: 'password123' };
-        const mockToken = 'mocked-token';
-        mock.onPost("/api/auth/login", loginRequest).reply(200, mockToken);
+        const mockToken = "mockedtoken";
+        mock.onPost("http://localhost:8080/api/auth/login", loginRequest).reply(200, mockToken);
 
         // Act
         const token = await getToken(loginRequest);
 
         // Assert
-        console.log(token)
         expect(token == mockToken).to.be.true;
     });
 
