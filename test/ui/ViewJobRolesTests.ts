@@ -3,9 +3,17 @@ import { expect } from 'chai';
 import * as chrome from 'selenium-webdriver/chrome';
 import { ViewJobRolesTestsPage } from './ViewJobRolesTestsPage';
 
+
+const viewJobRolesTestsPage = require('../ui/ViewJobRolesTestsPage');
+
 describe('View Job Roles Tests', function () {
+    this.timeout(50000);
     let driver: WebDriver;
     let viewRolesPage: ViewJobRolesTestsPage;
+
+    beforeEach(function(){
+
+    });
 
     before(async function () {
         driver = new Builder()
@@ -14,57 +22,22 @@ describe('View Job Roles Tests', function () {
             .build();
     });
 
-    after(async function () {
-        try {
-            await driver.quit();
-        } catch (error) {
-            console.error('Error quitting the driver:', error);
-        }
-    });
-
     it('Job roles page should load', async function () {
-        const url: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
-        await driver.get(url);
-
-        const title = By.xpath("//h2[normalize-space()='Available Job Roles']");
-        const element = await driver.findElement(title);
-        const actualText = await element.getText();
-        expect(actualText).to.equal('Available Job Roles');
+        await ViewJobRolesTestsPage.loadPage(driver);
+        await ViewJobRolesTestsPage.assertJobRolesTitle(driver);
     });
 
-    it.only('Facebook link should work', async function () {
-        this.timeout(30000); // Increase the timeout for the entire test
-
-    const url: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
-    const driver: WebDriver = await new Builder().forBrowser('chrome').build();
-
+    it('Facebook link should work', async function () {
     try {
-        await driver.get(url);
-
+        await ViewJobRolesTestsPage.loadPage(driver);
         await ViewJobRolesTestsPage.clickFacebook(driver);
-
-        await driver.wait(async () => {
-            const currentUrl = await driver.getCurrentUrl();
-            return currentUrl.includes('facebook.com/KainosSoftware');
-        }, 15000); // Wait up to 15 seconds
-
-        const facebookUrl = await driver.getCurrentUrl();
-        expect(facebookUrl).to.include('facebook.com/KainosSoftware');
-
+        await ViewJobRolesTestsPage.assertFacebook(driver);
         await driver.navigate().back();
-
-        const title = By.xpath("//h2[normalize-space()='Available Job Roles']");
-        await driver.wait(until.elementLocated(title), 10000); // Wait up to 10 seconds
-
-        const elementBack = await driver.findElement(title);
-        const newTitleText = await elementBack.getText();
-        expect(newTitleText).to.equal('Available Job Roles');
+        await ViewJobRolesTestsPage.assertJobRolesTitle(driver);
     } catch (error) {
         console.error('Test failed:', error);
         throw error; 
-    } finally {
-        await driver.quit();
-    }
+    } 
     });
 
 
@@ -111,8 +84,20 @@ describe('View Job Roles Tests', function () {
         const elementBack = await driver.findElement(title);
         const newTitleText = await elementBack.getText();
         expect(newTitleText).to.equal('Available Job Roles');
+    })
+
+
+    after(async function () {
+        try {
+            await driver.quit();
+        } catch (error) {
+            console.error('Error quitting the driver:', error);
+        }
     });
 
+    // afterEach(async function(){
+    //     await viewJobRolesTestsPage.closeBrowser();
+    // });
 
 
     // this code also needs to check that the job status' all say 'open'

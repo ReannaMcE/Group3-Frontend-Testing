@@ -1,64 +1,40 @@
-import { Builder, By, WebDriver, WebElement, until } from 'selenium-webdriver';
+import { WebDriver, WebElement, By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
-import * as chrome from 'selenium-webdriver/chrome';
 
 export class ViewJobRolesTestsPage {
+    private static BASE_URL: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
-
-    // WebElements ----------------------------------------------------------------------------------------------------------
-    public static async Title(driver: WebDriver): Promise<WebElement> {
-        const element: WebElement = await driver.findElement(By.xpath("//h2[normalize-space()='Available Job Roles']"));
-        return element;
+    public static async loadPage(driver: WebDriver): Promise<void> {
+        await driver.get(this.BASE_URL);
     }
 
     public static async FacebookLink(driver: WebDriver): Promise<WebElement> {
-        const element: WebElement = await driver.findElement(By.xpath("//a[@title='https://www.facebook.com/KainosSoftware/?locale=en_GB']"));
-        return element;
+        return driver.findElement(By.xpath("//a[@title='https://www.facebook.com/KainosSoftware/?locale=en_GB']"));
     }
-
-    public static async TwitterLink(driver: WebDriver): Promise<WebElement> {
-        const element: WebElement = await driver.findElement(By.xpath("//a[@title='https://x.com/i/flow/login?redirect_after_login=%2FKainosSoftware']"));
-        return element;
-    }
-
-
-    public static async InstagramLink(driver: WebDriver): Promise<WebElement> {
-        const element: WebElement = await driver.findElement(By.xpath("//a[@title='https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fkainossoftware%2F&is_from_rle']"));
-        return element;
-    }
-
-
-    // public static async HomeButton(driver: WebDriver): Promise<WebElement> {
-    //     const element: WebElement = await driver.findElement(By.id("id of home button goes here ******"));
-    //     return element;
-    // }
-
-    // public static async LoginButton(driver: WebDriver): Promise<WebElement> {
-    //     const element: WebElement = await driver.findElement(By.id("**** id of the login button goes here *****"));
-    //     return element;
-    // }
-
-
-    // public static async JobRolesButton(driver: WebDriver): Promise<WebElement> {
-    //     const element: WebElement = await driver.findElement(By.id("*** id of the job roles button goes here ****"));
-    //     return element;
-    // }
-
-
-
-    // Click Methods --------------------------------------------------------------------------------------------------------
 
     public static async clickFacebook(driver: WebDriver): Promise<void> {
         try {
-            // Wait for the Facebook link to be clickable before clicking
             const facebookLink: WebElement = await this.FacebookLink(driver);
-            await driver.wait(until.elementIsVisible(facebookLink), 10000); // Wait up to 10 seconds
+            await driver.wait(until.elementIsVisible(facebookLink), 10000);
             await facebookLink.click();
         } catch (error) {
             console.error('Error clicking the Facebook link:', error);
-            throw error; // Rethrow error to ensure test fails properly
+            throw error;
         }
-    
+    }
+
+    public static async assertFacebook(driver: WebDriver): Promise<void> {
+        await driver.wait(async () => {
+            const currentUrl = await driver.getCurrentUrl();
+            return currentUrl.includes('facebook.com/KainosSoftware');
+        }, 15000);
+    }
+
+    public static async assertJobRolesTitle(driver: WebDriver): Promise<void> {
+        const title = By.xpath("//h2[normalize-space()='Available Job Roles']");
+        await driver.wait(until.elementLocated(title), 10000);
+        const elementBack = await driver.findElement(title);
+        const newTitleText = await elementBack.getText();
+        expect(newTitleText).to.equal('Available Job Roles');
     }
 }
-
