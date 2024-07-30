@@ -74,25 +74,32 @@ color: white;
 /*to make the image the same as the kainos website*/
 .imagepositioning {
 position: relative;
-left: 12vw;
+left: 2vw;
 top:25px;
 }
 
 
 .homepositioning{
 position:relative;
-left: 16vw;
-top:25px;
+left: 4vw;
+top:30px;
 
 }
 
 .twopositioning{
 position:relative;
-left: 19vw;
-top:25px;
+left: 6vw;
+top:30px;
 
 }
 
+.threepositioning{
+position: absolute;
+left: 94vw;
+top: 28px;
+           
+}
+    
 
 .footer-basic {
 padding:40px 0;
@@ -157,45 +164,3 @@ font-size:13px;
 color:#aaa;
 margin-bottom:0;
 }
-
-
-.job-roles { 
-margin: 2rem 0; 
-margin-right: 50px;
-} 
-
-.job-roles h2 { 
-font-family: 'Galano Grotesque Alt', sans-serif;
-font-family: 'Galano Grotesque', sans-serif;
-font-size: 40px; 
-margin-bottom: 1rem; 
-} 
-
-.job-roles ul { 
-list-style: none; 
-
-} 
-
-.job-roles li { 
-font-family: 'Galano Grotesque Alt', sans-serif;
-font-family: 'Galano Grotesque', sans-serif;
-background-color: #fff; 
-border: 1px solid #ccc; 
-padding: 20px; 
-margin-bottom: 20px; 
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-} 
-
-.job-roles h3 { 
-font-family: 'Galano Grotesque Alt', sans-serif;
-font-family: 'Galano Grotesque', sans-serif;
-font-size: 22px; 
-margin-bottom: 10px; 
-} 
-
-.job-roles p { 
-font-family: 'Galano Grotesque Alt', sans-serif;
-font-family: 'Galano Grotesque', sans-serif;
-font-size: 14px; 
-margin-bottom: 10px; 
-} 
