@@ -16,12 +16,15 @@ export const getJobRoles = async (): Promise<JobRolesResponse[]> => {
     }
 }
 
-export const getJobRoleById = async (id: String): Promise<JobRole> => {
+export const getJobRoleById = async (id: string): Promise<JobRole> => {
     try {
         const response: AxiosResponse = await axios.get(URL + id);
 
         return response.data;
     } catch (e) { 
+        if(e.response.status == 404) {
+            throw new Error("Job Role does not exist");
+        }
         throw new Error('Failed to get Job Role');
     }
 }

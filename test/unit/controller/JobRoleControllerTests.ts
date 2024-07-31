@@ -81,7 +81,7 @@ describe('RoleContoller', function () {
         const req = { params: 1 };
         const res = { render: sinon.spy() };
 
-        await RoleController.getSingleJobRole(req as any, res as any);
+        await RoleController.getSingleJobRole(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
 
         expect(res.render.calledOnce).to.be.true;
@@ -99,7 +99,7 @@ describe('RoleContoller', function () {
         const req = { params: 1 };
         const res = { render: sinon.spy(), locals: { errormessage: '' } };
 
-        await RoleController.getSingleJobRole(req as any, res as any); 
+        await RoleController.getSingleJobRole(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
         expect(res.render.calledOnce).to.be.true;
         expect(res.render.calledWith('jobRolesList.html')).to.be.true;

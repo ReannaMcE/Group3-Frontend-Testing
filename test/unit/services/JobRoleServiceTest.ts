@@ -97,6 +97,18 @@ describe('JobRoleService', function () {
       }
 
       })
+
+      it('should throw Job Role does not exist error when 404 error returned from axios', async () => {
+        mock.onGet(URL + "1").reply(404);
+
+      try {
+        await getJobRoleById("1");
+      } catch (e) {
+        expect(e.message).to.equal('Job Role does not exist');
+        return;
+      }
+
+      })
       
     })
 
