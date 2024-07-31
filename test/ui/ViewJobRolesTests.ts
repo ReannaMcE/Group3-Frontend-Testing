@@ -4,7 +4,7 @@ import { FooterTestPage } from './FooterTestPage';
 
 describe('View Job Roles Tests', function () {
     this.timeout(50000);
-    var page:string = 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
+    const page:string = 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
     before(async function () {
         await ViewJobRolesTestsPage.startDriver();
