@@ -9,7 +9,7 @@ export class ViewJobRolesTestsPage {
 
     // WebDriver Functions --------------------------------------------------------------------------------
     public static async startDriver(): Promise<void> {
-        let options = new chrome.Options();
+        const options = new chrome.Options();
         options.addArguments('headless'); // Enable headless mode
         options.addArguments('disable-gpu'); 
         options.addArguments('no-sandbox'); 
