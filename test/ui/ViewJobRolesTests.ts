@@ -1,10 +1,15 @@
 import { ViewJobRolesTestsPage } from './ViewJobRolesTestsPage';
+import { HeaderTestPage } from './HeaderTestPage';
+import { FooterTestPage } from './FooterTestPage';
 
 describe('View Job Roles Tests', function () {
     this.timeout(50000);
+    var page:string = 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
     before(async function () {
         await ViewJobRolesTestsPage.startDriver();
+        FooterTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the footer test uses the same driver
+        HeaderTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the header test uses the same driver
     });
 
     after(async function () {
@@ -12,16 +17,19 @@ describe('View Job Roles Tests', function () {
     });
 
     it('Job roles page should load', async function () {
-        await ViewJobRolesTestsPage.loadPage();
+        await ViewJobRolesTestsPage.loadPage(page);
         await ViewJobRolesTestsPage.assertJobRolesTitle();
     });
 
-    it('Facebook link should work', async function () {
+    it.only('Footer links should work', async function () {
         try {
-            await ViewJobRolesTestsPage.loadPage();
-            await ViewJobRolesTestsPage.clickFacebook();
-            await ViewJobRolesTestsPage.assertFacebook();
-            await ViewJobRolesTestsPage.getDriver().navigate().back();
+            await ViewJobRolesTestsPage.loadPage(page);
+            await FooterTestPage.clickLink("//a[@title='https://www.facebook.com/KainosSoftware/?locale=en_GB']"); //await ViewJobRolesTestsPage.clickLink("facebook");
+            await FooterTestPage.assertAndGoBack('facebook.com/KainosSoftware', page);
+            await FooterTestPage.clickLink("//a[@title='https://x.com/i/flow/login?redirect_after_login=%2FKainosSoftware']"); //await ViewJobRolesTestsPage.clickLink("twitter");
+            await FooterTestPage.assertAndGoBack('x.com', page);
+            await FooterTestPage.clickLink("//a[@title='https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fkainossoftware%2F&is_from_rle']"); //await ViewJobRolesTestsPage.clickLink("instagram")
+            await FooterTestPage.assertAndGoBack('instagram.com', page);
             await ViewJobRolesTestsPage.assertJobRolesTitle();
         } catch (error) {
             console.error('Test failed:', error);
@@ -29,72 +37,28 @@ describe('View Job Roles Tests', function () {
         }
     });
 
-    it('Twitter link should work', async function () {
+    it('Job status should always be open', async function () {
+        await ViewJobRolesTestsPage.loadPage(page);
+        await ViewJobRolesTestsPage.assertJobStatusOpen();
+    });
+
+    it('Header buttons should work', async function () {
         try {
-            await ViewJobRolesTestsPage.loadPage();
-            await ViewJobRolesTestsPage.clickTwitter();
-            await ViewJobRolesTestsPage.assertTwitter();
-            await ViewJobRolesTestsPage.loadPage();
+            await ViewJobRolesTestsPage.loadPage(page);
+            await HeaderTestPage.clickButton('navbarHome', 'home');
+            await ViewJobRolesTestsPage.assertHomePageImg();
+            await ViewJobRolesTestsPage.loadPage(page);
             await ViewJobRolesTestsPage.assertJobRolesTitle();
+
+            await HeaderTestPage.clickButton('navbarJobs', 'job roles');
+            await ViewJobRolesTestsPage.assertJobRolesTitle();
+        
         } catch (error) {
             console.error('Test failed:', error);
             throw error;
         }
     });
 
-    it('Instagram link should work', async function () {
-        try {
-            await ViewJobRolesTestsPage.loadPage();
-            await ViewJobRolesTestsPage.clickInstagram();
-            await ViewJobRolesTestsPage.assertInstagram();
-            await ViewJobRolesTestsPage.loadPage();
-            await ViewJobRolesTestsPage.assertJobRolesTitle();
-        } catch (error) {
-            console.error('Test failed:', error);
-            throw error;
-        }
-    });
-
-    // it('Job status should always be open', async function () {
-    //     await ViewJobRolesTestsPage.loadPage();
-    //     await ViewJobRolesTestsPage.assertJobStatusOpen();
-    // });
-
-    // it('Home button should work', async function () {
-    //     try {
-    //         await ViewJobRolesTestsPage.loadPage();
-    //         await ViewJobRolesTestsPage.clickHome();
-    //         await ViewJobRolesTestsPage.assertHomePageImg();
-    //         await ViewJobRolesTestsPage.loadPage();
-    //         await ViewJobRolesTestsPage.assertJobRolesTitle();
-    //     } catch (error) {
-    //         console.error('Test failed:', error);
-    //         throw error;
-    //     }
-    // });
-
-    // it('Jobs button should work', async function () {
-    //     try {
-    //         await ViewJobRolesTestsPage.loadPage();
-    //         await ViewJobRolesTestsPage.clickJobs();
-    //         await ViewJobRolesTestsPage.assertJobRolesTitle();
-    //     } catch (error) {
-    //         console.error('Test failed:', error);
-    //         throw error;
-    //     }
-    // });
-
-    // it('Login button should work', async function () {
-    //     try {
-    //         await ViewJobRolesTestsPage.loadPage();
-    //         await ViewJobRolesTestsPage.clickLogin();
-    //         await ViewJobRolesTestsPage.assertLoginPage();
-    //         await ViewJobRolesTestsPage.loadPage();
-    //         await ViewJobRolesTestsPage.assertJobRolesTitle();
-    //     } catch (error) {
-    //         console.error('Test failed:', error);
-    //         throw error;
-    //     }
-    // });
+    
 
 });
