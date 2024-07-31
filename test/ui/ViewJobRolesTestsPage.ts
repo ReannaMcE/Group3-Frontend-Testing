@@ -9,10 +9,16 @@ export class ViewJobRolesTestsPage {
 
     // WebDriver Functions --------------------------------------------------------------------------------
     public static async startDriver(): Promise<void> {
-        this.driver = await new Builder()
-            .forBrowser('chrome')
-            .setChromeOptions(new chrome.Options())
-            .build();
+        let options = new chrome.Options();
+        options.addArguments('headless'); // Enable headless mode
+        options.addArguments('disable-gpu'); 
+        options.addArguments('no-sandbox'); 
+      
+        this.driver = new Builder()
+        .forBrowser('chrome')
+        .setChromeOptions(options)
+        .build();
+      
     }
 
     public static async quitDriver(): Promise<void> {
