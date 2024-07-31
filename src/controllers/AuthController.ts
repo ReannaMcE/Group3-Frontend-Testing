@@ -21,6 +21,7 @@ export const logout = async (req: express.Request, res: express.Response): Promi
             res.status(500).send('Failed to log out');
         } else {
             res.status(200).send('Logged out successfully');
+            //res.redirect('/loginForm');
         }
     });
 };

@@ -3,7 +3,6 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 
-import { getLoginForm, postLoginForm } from "./controllers/AuthController";
 import { getAllJobRoles, getHomePage } from "./controllers/RoleController";
 import { dateFilter } from "./filter/DateFilter";
 import  AuthRoutes from "./Routes/AuthRoutes";
@@ -41,6 +40,4 @@ app.listen(3000, () => {
 });
 
 app.get('/jobRoles', getAllJobRoles);
-app.get('/loginForm', getLoginForm);
-app.post('/loginForm', postLoginForm);
 app.get('/homepage' , getHomePage)
