@@ -24,11 +24,11 @@ describe('View Job Roles Tests', function () {
     it.only('Footer links should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
-            await FooterTestPage.clickLink("//a[@title='https://www.facebook.com/KainosSoftware/?locale=en_GB']"); //await ViewJobRolesTestsPage.clickLink("facebook");
+            await FooterTestPage.clickLink("facebook");
             await FooterTestPage.assertAndGoBack('facebook.com/KainosSoftware', page);
-            await FooterTestPage.clickLink("//a[@title='https://x.com/i/flow/login?redirect_after_login=%2FKainosSoftware']"); //await ViewJobRolesTestsPage.clickLink("twitter");
+            await FooterTestPage.clickLink("twitter");
             await FooterTestPage.assertAndGoBack('x.com', page);
-            await FooterTestPage.clickLink("//a[@title='https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fkainossoftware%2F&is_from_rle']"); //await ViewJobRolesTestsPage.clickLink("instagram")
+            await FooterTestPage.clickLink("instagram")
             await FooterTestPage.assertAndGoBack('instagram.com', page);
             await ViewJobRolesTestsPage.assertJobRolesTitle();
         } catch (error) {
