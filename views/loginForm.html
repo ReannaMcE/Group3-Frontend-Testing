@@ -25,10 +25,10 @@
                     
                         <form class="form" action="/loginForm" method="post">
                             {% if errormessage %}
-            <div class="error-container">
-                <p class="error-message">{{ errormessage }}</p>
-            </div>
-        {% endif %}
+                                <div class="error-container">
+                                    <p class="error-message">{{ errormessage }}</p>
+                                </div>
+                            {% endif %}
                             <div class="login__field">
                                 <i class="fa-solid fa-envelope" style = "color: #252d4f;"></i>
                                 <input id="username" name="username" value="{{username}}" type="text" class="login__input" placeholder="Email">

@@ -1,26 +1,3 @@
-<script>
-  async function logout() {
-      try {
-          const response = await fetch('/api/auth/logout', {
-              method: 'POST',
-              credentials: 'same-origin'
-          });
-
-          if (response.ok) {
-              document.getElementById('message').innerText = 'You have been logged out successfully.';
-              setTimeout(() => {
-                  window.location.href = '/loginForm';
-              }, 2000);
-          } else {
-              document.getElementById('message').innerText = 'Failed to log out.';
-          }
-      } catch (error) {
-          console.error('Error:', error);
-          document.getElementById('message').innerText = 'An error occurred.';
-      }
-  }
-</script>
-
 <nav class="header">
     <div class="headerformat">
         <div class="middle">
@@ -42,7 +19,7 @@
 
             <div class="threepositioning" style="font-size:100%">
               <li>
-                <button id="button" onclick="logout()" style="border: none; background-color: Transparent">
+                <button id="popupButton" onclick="logout()" style="border: none; background-color: Transparent">
                     <i class="fas fa-right-to-bracket fa-2x" id="navbarLogin"></i>
                 </button>
               </li>
@@ -54,3 +31,58 @@
      
     </div>
   </nav>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close">&times;</span>
+        <h2>Notification</h2>
+        <p id="popupMessage"></p>
+    </div>
+</div>
+
+<!-- <script src="./js/popup.js"></script> -->
+
+<script>
+  async function logout() {
+      try {
+          const response = await fetch('/api/auth/logout', {
+              method: 'POST',
+              credentials: 'same-origin'
+          });
+
+          if (response.ok) {
+              document.getElementById('message').innerText = 'You have been logged out successfully.';
+              document.getElementById('popup').style.display = 'flex';
+              setTimeout(() => {
+                  window.location.href = '/loginForm';
+              }, 2000);
+          } else {
+              document.getElementById('message').innerText = 'Failed to log out.';
+              document.getElementById('popup').style.display = 'flex';
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('message').innerText = 'An error occurred.';
+          document.getElementById('popup').style.display = 'flex';
+      }
+
+      document.getElementById('popupMessage').innerText = document.getElementById('message').innerText;
+            document.getElementById('popup').style.display = 'flex';
+            // Redirect after showing the popup
+            setTimeout(() => {
+                window.location.href = '/loginForm';
+            }, 2000);
+  }
+
+  document.getElementById('popupButton').addEventListener('click', logout);
+
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('popup')) {
+                document.getElementById('popup').style.display = 'none';
+            }
+        }
+</script>
