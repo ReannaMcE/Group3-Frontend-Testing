@@ -22,22 +22,22 @@
         <section class="job-roles">
 
             {% if jobRole %}
-            <h2 style = "text-align: center;">{{ jobRole.roleName }}</h2>
+            <h2 id="jobRoleName" style = "text-align: center;">{{ jobRole.roleName }}</h2>
             <ul>
                 <li>
-                   <h4 style="font-family:''Galano Grotesque', sans-serif';"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
+                   <h4 id="mapMarker" style="font-family:''Galano Grotesque', sans-serif';"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
 
-                    <h3>Description</h3>
-                    <p>{{ jobRole.description }}</p>
+                    <h3 id="description">Description</h3>
+                    <p id="description">{{ jobRole.description }}</p>
 
-                    <h3>Responsibilities</h3>
-                    <p>{{ jobRole.responsibilities }}</p>
+                    <h3 id="responsibilities"> Responsibilities</h3>
+                    <p id="responsibilities">{{ jobRole.responsibilities }}</p>
 
                 
-                    <p><b>Capability: </b>{{ jobRole.capability }}</p>
-                    <p><b>Band: </b>{{ jobRole.band }}</p>
-                    <p><b>Closing Date:</b> {{ jobRole.closingDate | date }}</p>
-                    <p><a href="{{ jobRole.jobSpec }}" target="_blank">Click here to see job specification</a></p>
+                    <p id="capability"><b>Capability: </b>{{ jobRole.capability }}</p>
+                    <p id="ban"><b>Band: </b>{{ jobRole.band }}</p>
+                    <p id="closingDate"> <b>Closing Date:</b> {{ jobRole.closingDate | date }}</p>
+                    <p id="jobSpec"><a href="{{ jobRole.jobSpec }}" target="_blank">Click here to see job specification</a></p>
                     
                 </li>
             </ul>
