@@ -30,24 +30,25 @@
                                 </div>
                             {% endif %}
                             <div class="login__field">
+                                <label for="username" class="visually-hidden">Username</label>
                                 <i class="fa-solid fa-envelope" style = "color: #252d4f;"></i>
+
                                 <input id="username" name="username" value="{{username}}" type="text" class="login__input" placeholder="Email">
-                             
                             </div>
-                            
                            
                             <div class="login__field">
+                                <label for="password" class="visually-hidden">Password</label>
                                 <i class="fa-solid fa-lock" style = "color: #252d4f;"></i>
                                 <input id="password" name="password" value="{{password}}" type="password" class="login__input" placeholder="Password">
                             </div>
                             <button id="submit" class="button login__submit">
-                                <span class="button__text">Log In Now</span>
-                                <i class="button__icon fas fa-chevron-right"></i>
+                                <span  id="submitButton" class="button__text">Log In Now</span>
+                                <i class="button__icon fas fa-chevron-right" id="submitButton"></i>
                             </button>               
                         </form>
                     </div>
                     <div class="screen__background">
-                        <img src="./img/loginBackground.jpg" style="object-fit: contain;">
+                        <img src="./img/loginBackground.jpg" alt = "loginBackground" style="object-fit: contain;">
                         <span class="screen__background__shape screen__background__shape1"></span>
                     </div>      
                 </div>
