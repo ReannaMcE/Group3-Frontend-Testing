@@ -34,7 +34,7 @@
                 <ul> 
                     {% for jobRole in roles %}
                     <li> 
-                        <h3 style="font-size:235%;" id="jobRoleName"><a href="/jobRoles/{{jobRole.id}}" style="color:#252d4f; ">{{ jobRole.roleName }}</a></h3> 
+                        <h3 style="font-size:235%;" id="jobRoleName"><a href="/jobRoles/{{jobRole.id}}" style="color:#252d4f; " id="jobRoleName">{{ jobRole.roleName }}</a></h3> 
                         <h4 style="font-family:''Galano Grotesque', sans-serif';" id="locationMapMarker"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
                         <p id="jobCapability"><b>Capability: </b>{{ jobRole.capability }}</p> 
                         <p id="jobBandCapability"><b>Band: </b>{{ jobRole.band }}</p> 
