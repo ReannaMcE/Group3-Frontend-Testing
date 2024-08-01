@@ -1,0 +1,137 @@
+@import url('https://fonts.cdnfonts.com/css/galano-grotesque-alt');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+    font-family: 'Galano Grotesque Alt', sans-serif;
+}
+
+
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    margin-top: 50px;
+}
+
+.screen {       
+    position: relative; 
+    height: 600px;
+    width: 360px;   
+    box-shadow: 0px 0px 24px #252d4f;
+}
+
+.screen__content {
+    z-index: 1;
+    position: relative; 
+    height: 100%;
+}
+
+.screen__background {   
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);  
+}
+
+.screen__background__shape {
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.screen__background__shape1 {
+    height: 520px;
+    width: 520px;
+    background: white;  
+    top: -50px;
+    right: 120px;   
+    border-radius: 0 72px 0 0;
+}
+
+.form {
+    width: 300px;
+    padding: 30px;
+    padding-top: 156px;
+}
+
+.login__field {
+    padding: 10px 0px;  
+    position: relative; 
+}
+
+.login__icon {
+    position: absolute;
+    top: 30px;
+    color: #252d4f;
+}
+
+.login__input {
+    
+    border: none ;
+    border-bottom: 2px solid #252d4f;
+    background: none;
+    padding: 10px;
+    padding-left: 24px;
+    font-weight: 700;
+    width: 75%;
+    transition: .2s;
+    color: rgb(0, 0, 0);
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+    outline: none;
+    border-bottom-color: #8987a7;
+}
+
+.login__submit {
+    background: #fff;
+    font-size: 14px;
+    margin-top: 30px;
+    padding: 16px 20px;
+    border-radius: 26px;
+    border: 1px solid #D4D3E8;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: #252d4f;
+    box-shadow: 0px 2px 2px #252d4f;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+    border-color: #6A679E;
+    outline: none;
+}
+
+.button__icon {
+    font-size: 24px;
+    margin-left: auto;
+    color: #252d4f;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    color: black;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
