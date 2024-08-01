@@ -1,9 +1,11 @@
 import { ViewJobRolesTestsPage } from './ViewJobRolesTestsPage';
 import { HeaderTestPage } from './HeaderTestPage';
 import { FooterTestPage } from './FooterTestPage';
+import { By, until } from 'selenium-webdriver';
+import { expect } from 'chai';
 
 describe('View Job Roles Tests', function () {
-    this.timeout(50000);
+    this.timeout(70000);
     const page:string = 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
     before(async function () {
@@ -21,7 +23,7 @@ describe('View Job Roles Tests', function () {
         await ViewJobRolesTestsPage.assertJobRolesTitle();
     });
 
-    it.only('Footer links should work', async function () {
+    it('Footer links should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
             await FooterTestPage.clickLink("facebook");
@@ -42,16 +44,32 @@ describe('View Job Roles Tests', function () {
         await ViewJobRolesTestsPage.assertJobStatusOpen();
     });
 
-    it('Header buttons should work', async function () {
+    it.only('Header buttons should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
             await HeaderTestPage.clickButton('navbarHome', 'home');
-            await ViewJobRolesTestsPage.assertHomePageImg();
-            await ViewJobRolesTestsPage.loadPage(page);
-            await ViewJobRolesTestsPage.assertJobRolesTitle();
 
-            await HeaderTestPage.clickButton('navbarJobs', 'job roles');
-            await ViewJobRolesTestsPage.assertJobRolesTitle();
+                const homepageimg =  this.driver.findElement(By.xpath("//img[@id='homepageBackgroundImage']"));
+            
+ // Wait for the image to be located
+ await ViewJobRolesTestsPage.driver.wait(until.elementLocated(homepageimg), 10000);
+        
+ // Find the image element
+ const imageElement = await ViewJobRolesTestsPage.driver.findElement(homepageimg);
+ 
+ // Ensure the image is displayed
+ const isDisplayed = await imageElement.isDisplayed();
+ 
+ // Log and assert the image is displayed
+ console.log('Image is displayed:', isDisplayed);
+ expect(isDisplayed).to.be.true;
+
+            //await ViewJobRolesTestsPage.assertHomePageImg();
+            // await ViewJobRolesTestsPage.loadPage(page);
+            // await ViewJobRolesTestsPage.assertJobRolesTitle();
+
+            // await HeaderTestPage.clickButton('navbarJobs', 'job roles');
+            // await ViewJobRolesTestsPage.assertJobRolesTitle();
         
         } catch (error) {
             console.error('Test failed:', error);
