@@ -54,15 +54,13 @@ describe('AuthController', function () {
     describe('logout', function () {
       it('should respond with 200 and "Logged out successfully" when session destruction succeeds', async () => {
         const req = { session: { destroy: sinon.stub().callsFake((callback) => callback(null))}};
-        const res = { status: sinon.stub().returnsThis(), send: sinon.stub()};
+        const res = { status: sinon.stub().returnsThis(), send: sinon.stub(), redirect: sinon.stub()};
 
         await AuthController.logout(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
       expect(req.session.destroy.calledOnce).to.be.true;
-      expect(res.status.calledWith(200)).to.be.true;
-      expect(res.send.calledWith('Logged out successfully')).to.be.true;
+      expect(res.redirect.calledOnceWith(200, '/loginForm')).to.be.true;
       });
-    });
     it('should respond with 500 and "Failed to log out" when session destruction fails', async () => {
       const req = { session: { destroy: sinon.stub().callsFake((callback) => callback(new Error('Failed')))}};
       const res = { status: sinon.stub().returnsThis(), send: sinon.stub()};
@@ -73,4 +71,5 @@ describe('AuthController', function () {
       expect(res.status.calledWith(500)).to.be.true;
       expect(res.send.calledWith('Failed to log out')).to.be.true;
   });
+});
 });

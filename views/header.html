@@ -68,10 +68,7 @@
 
       document.getElementById('popupMessage').innerText = document.getElementById('message').innerText;
             document.getElementById('popup').style.display = 'flex';
-            // Redirect after showing the popup
-            setTimeout(() => {
-                window.location.href = '/loginForm';
-            }, 2000);
+        
   }
 
   document.getElementById('popupButton').addEventListener('click', logout);
