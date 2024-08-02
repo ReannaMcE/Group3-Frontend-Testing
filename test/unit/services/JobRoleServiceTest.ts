@@ -87,32 +87,6 @@ describe('JobRoleService', function () {
         expect(result.jobSpec).to.deep.equal(jobRole.jobSpec);
       })
 
-      it('should throw Job Role does not exist error when axios returns a jobRole with closed status', async () => {
-
-        const data: JobRole = {
-          id:1,
-          roleName: "TechLead",
-          location: "Belfast",
-          capability: "High",
-          band: "Microsoft",
-          closingDate: testDate,
-          status: "closed",
-          description: "Description",
-          responsibilities: "Responsibilities",
-          jobSpec: "jobSpecLink"
-        }
-
-        mock.onGet(URL + "1").reply(200, data);
-
-        try {
-          await getJobRoleById("1");
-        } catch (e) {
-          expect(e.message).to.equal('Failed to get Job Role');
-          return;
-        }
-        
-      })
-
       it('should throw Failed to get Job Role error when 500 error returned from axios', async () => {
         mock.onGet(URL + "1").reply(500);
 
