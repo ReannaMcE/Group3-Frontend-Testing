@@ -1,8 +1,6 @@
 import { WebElement, By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
-import { basepage } from './basepage';
 import { FooterTestPage } from './FooterTestPage';
-import { HeaderTestPage } from './HeaderTestPage';
 
 export class ViewJobRolesTestsPage extends FooterTestPage {
     

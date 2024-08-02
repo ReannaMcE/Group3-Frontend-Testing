@@ -1,6 +1,4 @@
 import { ViewJobRolesTestsPage } from '../ui/ViewJobRolesTestsPage';
-import { HeaderTestPage } from '../ui/HeaderTestPage';
-import { FooterTestPage } from '../ui/FooterTestPage';
 import { basepage } from './basepage';
 
 describe('View Job Roles Tests', function () {
