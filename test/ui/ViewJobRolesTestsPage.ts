@@ -1,8 +1,10 @@
 import { WebElement, By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
 import { basepage } from './basepage';
+import { FooterTestPage } from './FooterTestPage';
+import { HeaderTestPage } from './HeaderTestPage';
 
-export class ViewJobRolesTestsPage extends basepage {
+export class ViewJobRolesTestsPage extends FooterTestPage {
     
 
     // Web Elements --------------------------------------------------------------------------------
@@ -33,10 +35,6 @@ export class ViewJobRolesTestsPage extends basepage {
         expect(jobStatusText).to.equal('Status: open');
     }
 
-    public static async assertLoginPage(): Promise<void> {
-        await this.driver.wait(async () => {
-            this.LoginUserTextBox() != null;
-        }, 15000);
-    }
+ 
 
 }

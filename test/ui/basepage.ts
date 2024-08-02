@@ -38,15 +38,30 @@ export class basepage {
         return this.driver.findElement(By.id(id));
     }
 
+    public static async getButton(id: string): Promise<WebElement> {
+        return this.driver.findElement(By.id(id));
+    }
 
      // Click links --------------------------------------------------------------------------------
      public static async clickLink(id: string): Promise<void> {
         try {
             const link: WebElement = await this.getLink(id);
-            await this.driver.wait(until.elementIsVisible(link), 20000);
+            await this.driver.wait(until.elementIsVisible(link), 30000);
             await link.click();
         } catch (error) {
             console.error('Error clicking the link:', error);
+            throw error;
+        }
+    }
+
+    // Click Buttons --------------------------------------------------------------------------------
+    public static async clickButton(id: string, buttonName: string): Promise<void> {
+        try {
+            const btn: WebElement = await this.getButton(id);
+            await this.driver.wait(until.elementIsVisible(btn), 10000);
+            await btn.click();
+        } catch (error) {
+            console.error('Error clicking the' + buttonName + 'button:', error);
             throw error;
         }
     }
@@ -61,4 +76,8 @@ export class basepage {
 
         await this.loadPage(page);
     }
+
+
+
+    
 }

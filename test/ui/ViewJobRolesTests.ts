@@ -5,12 +5,10 @@ import { basepage } from './basepage';
 
 describe('View Job Roles Tests', function () {
     this.timeout(70000);
-    const page:string = 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
+    const page: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
     before(async function () {
         await basepage.startDriver();
-        //FooterTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the footer test uses the same driver
-        //HeaderTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the header test uses the same driver
     });
 
     after(async function () {
@@ -25,12 +23,12 @@ describe('View Job Roles Tests', function () {
     it('Footer links should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
-            await FooterTestPage.clickFacebook();
-            await FooterTestPage.assertFBAndGoBack(page);
-            await FooterTestPage.clickTwitter();
-            await FooterTestPage.assertTwitterAndGoBack(page);
-            await FooterTestPage.clickInstagram();
-            await FooterTestPage.assertIGAndGoBack(page);
+            await ViewJobRolesTestsPage.clickFacebook();
+            await ViewJobRolesTestsPage.assertFBAndGoBack(page);
+            await ViewJobRolesTestsPage.clickTwitter();
+            await ViewJobRolesTestsPage.assertTwitterAndGoBack(page);
+            await ViewJobRolesTestsPage.clickInstagram();
+            await ViewJobRolesTestsPage.assertIGAndGoBack(page);
             await ViewJobRolesTestsPage.assertJobRolesTitle();
         } catch (error) {
             console.error('Test failed:', error);
@@ -46,9 +44,9 @@ describe('View Job Roles Tests', function () {
     it('Header buttons should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
-            await HeaderTestPage.clickButton('navbarHome', 'home');
+            await ViewJobRolesTestsPage.clickButton('navbarHome', 'home');
 
-            await HeaderTestPage.clickButton('navbarJobs', 'job roles');
+            await ViewJobRolesTestsPage.clickButton('navbarJobs', 'job roles');
             await ViewJobRolesTestsPage.assertJobRolesTitle();
         
         } catch (error) {
