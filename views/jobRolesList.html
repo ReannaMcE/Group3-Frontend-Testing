@@ -25,23 +25,23 @@
 
     <body>
         {% include "header.html" %}
-            <section class="job-roles"> 
-                <h2 style="text-align: center; font-size:325%;">Available Job Roles</h2>
-                
-                <ul> 
-                    {% for jobRole in roles %}
-                    <li> 
-                        <h3 style="font-size:235%;" id="jobRoleName"><a title="Link to Job Role details" href="/jobRoles/{{jobRole.id}}" style="color:#252d4f; " id="jobRoleName">{{ jobRole.roleName }}</a></h3> 
-                        <h4 style="font-family:''Galano Grotesque', sans-serif';" id="locationMapMarker"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
-                        <p id="jobCapability"><b>Capability: </b>{{ jobRole.capability }}</p> 
-                        <p id="jobBandCapability"><b>Band: </b>{{ jobRole.band }}</p> 
-                        <p id="jobClosingDate"><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
-                        <p id="jobStatus"><b>Status: </b>{{ jobRole.status }}</p> 
-                    </li> 
-                    {% endfor %} 
-                </ul>
-              
-            </section> 
-            {% include "footer.html" %}
+
+        <section class="job-roles"> 
+            <h2 id="availableJobRoles" style="text-align: center; font-size:325%;">Available Job Roles</h2>
+            <ul> 
+                {% for jobRole in roles %}
+                <li> 
+                    <h3 style="font-size:235%;" id="jobRoleName_{{ loop.index }}"><a href="/jobRoles/{{ jobRole.id }}" style="color:#252d4f;" id="jobRoleNameLink_{{ loop.index }}">{{ jobRole.roleName }}</a></h3> 
+                    <h4 style="font-family:'Galano Grotesque', sans-serif;" id="locationMapMarker_{{ loop.index }}"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ jobRole.location }}</h4>
+                    <p id="jobCapability_{{ loop.index }}"><b>Capability: </b>{{ jobRole.capability }}</p> 
+                    <p id="jobBandCapability_{{ loop.index }}"><b>Band: </b>{{ jobRole.band }}</p> 
+                    <p id="jobClosingDate_{{ loop.index }}"><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
+                    <p id="jobStatus_{{ loop.index }}"><b>Status: </b>{{ jobRole.status }}</p> 
+                </li> 
+                {% endfor %} 
+            </ul>
+        </section> 
+        {% include "footer.html" %}
+
     </body>
 </html>
