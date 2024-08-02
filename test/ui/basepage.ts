@@ -7,9 +7,9 @@ export class basepage {
     // WebDriver Functions --------------------------------------------------------------------------------
     public static async startDriver(): Promise<void> {
         const options = new chrome.Options();
-        // options.addArguments('headless'); // Enable headless mode
-        // options.addArguments('disable-gpu');
-        // options.addArguments('no-sandbox');
+        options.addArguments('headless'); // Enable headless mode
+        options.addArguments('disable-gpu');
+        options.addArguments('no-sandbox');
       
         this.driver = new Builder()
             .forBrowser('chrome')

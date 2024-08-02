@@ -1,6 +1,6 @@
 import { WebElement, By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
-import { basepage } from '../ui/basepage';
+import { basepage } from './basepage';
 
 export class ViewJobRolesTestsPage extends basepage {
     
@@ -19,7 +19,8 @@ export class ViewJobRolesTestsPage extends basepage {
     // Assertions --------------------------------------------------------------------------------
   
     public static async assertJobRolesTitle(): Promise<void> {
-        const title = By.id("availableJobRoles");
+        //const title = By.id("availableJobRoles");
+        const title = By.xpath("//h2[normalize-space()='Available Job Roles']");
         await this.driver.wait(until.elementLocated(title), 30000);
         const elementBack = await this.driver.findElement(title);
         const newTitleText = await elementBack.getText();

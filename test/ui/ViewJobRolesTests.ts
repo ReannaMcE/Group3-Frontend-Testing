@@ -1,6 +1,6 @@
-import { ViewJobRolesTestsPage } from './ViewJobRolesTestsPage';
-import { HeaderTestPage } from './HeaderTestPage';
-import { FooterTestPage } from './FooterTestPage';
+import { ViewJobRolesTestsPage } from '../ui/ViewJobRolesTestsPage';
+import { HeaderTestPage } from '../ui/HeaderTestPage';
+import { FooterTestPage } from '../ui/FooterTestPage';
 import { By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
 

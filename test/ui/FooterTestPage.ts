@@ -1,5 +1,5 @@
 import { WebElement, By, until } from 'selenium-webdriver';
-import { basepage } from '../ui/basepage';
+import { basepage } from './basepage';
 
 export class FooterTestPage extends basepage {
 
