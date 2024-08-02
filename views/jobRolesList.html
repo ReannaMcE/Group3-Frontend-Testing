@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html lang = "en">
 
+
     <head>
         <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/jobRolesListStyle.css">
+        <title>Job Roles</title>
+        <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
         <title>Job Roles</title>
         <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
         <meta charset="utf-8">
@@ -15,23 +25,21 @@
 
     <body>
         {% include "header.html" %}
-            <section class="job-roles"> 
-                <h2 style="text-align: center; font-size:325%;">Available Job Roles</h2>
-                
-                <ul> 
-                    {% for jobRole in roles %}
-                    <li> 
-                        <h3 style="font-size:235%;">{{ jobRole.roleName }}</h3> 
-                        <h4 style="font-family:''Galano Grotesque', sans-serif';"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h4>
-                        <p><b>Capability: </b>{{ jobRole.capability }}</p> 
-                        <p><b>Band: </b>{{ jobRole.band }}</p> 
-                        <p><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
-                        <p><b>Status: </b>{{ jobRole.status }}</p> 
-                    </li> 
-                    {% endfor %} 
-                </ul>
-              
-            </section> 
-            {% include "footer.html" %}
+        <section class="job-roles"> 
+            <h2 id="availableJobRoles" style="text-align: center; font-size:325%;">Available Job Roles</h2>
+            <ul> 
+                {% for jobRole in roles %}
+                <li> 
+                    <h3 style="font-size:235%;" id="jobRoleName_{{ loop.index }}"><a href="/jobRoles/{{ jobRole.id }}" style="color:#252d4f;" id="jobRoleNameLink_{{ loop.index }}">{{ jobRole.roleName }}</a></h3> 
+                    <h4 style="font-family:'Galano Grotesque', sans-serif;" id="locationMapMarker_{{ loop.index }}"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ jobRole.location }}</h4>
+                    <p id="jobCapability_{{ loop.index }}"><b>Capability: </b>{{ jobRole.capability }}</p> 
+                    <p id="jobBandCapability_{{ loop.index }}"><b>Band: </b>{{ jobRole.band }}</p> 
+                    <p id="jobClosingDate_{{ loop.index }}"><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
+                    <p id="jobStatus_{{ loop.index }}"><b>Status: </b>{{ jobRole.status }}</p> 
+                </li> 
+                {% endfor %} 
+            </ul>
+        </section> 
+        {% include "footer.html" %}
     </body>
 </html>

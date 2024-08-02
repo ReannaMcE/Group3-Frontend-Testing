@@ -35,7 +35,7 @@ describe('RoleContoller', function () {
 
 
         expect(res.render.calledOnce).to.be.true;
-        expect(res.render.calledWith('jobRolesList.html', { roles: jobRolesList })).to.be.true;
+        expect(res.render.calledWith('jobRolesList.html', { baseURL: process.env.AWS_URL || 'http://localhost:3000', roles: jobRolesList })).to.be.true;
 
         stub.restore;
       });
