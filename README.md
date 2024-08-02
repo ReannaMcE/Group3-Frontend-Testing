@@ -14,6 +14,11 @@ pa11y https://example.com
 ```
 4. For any other problems see the following https://github.com/pa11y/pa11y
 
+## Running Tests
+1. You can run the UI tests using
+```
+npm run test-ui
+```
 
 ## Backend
 1. Follow the steps to run the backend for this application <a href="https://github.com/Joshua-Noble-Dev/Group3-Backend" target="_blank">here</a>
