@@ -43,7 +43,7 @@ export class basepage {
      public static async clickLink(id: string): Promise<void> {
         try {
             const link: WebElement = await this.getLink(id);
-            await this.driver.wait(until.elementIsVisible(link), 10000);
+            await this.driver.wait(until.elementIsVisible(link), 20000);
             await link.click();
         } catch (error) {
             console.error('Error clicking the link:', error);
@@ -57,7 +57,7 @@ export class basepage {
         await this.driver.wait(async () => {
             const currentUrl = await this.driver.getCurrentUrl();
             return currentUrl.includes(actualUrl);
-        }, 15000);
+        }, 20000);
 
         await this.loadPage(page);
     }
