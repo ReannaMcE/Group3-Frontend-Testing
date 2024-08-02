@@ -7,7 +7,9 @@ export class ViewJobRolesTestsPage extends basepage {
 
     // Web Elements --------------------------------------------------------------------------------
     public static async JobStatusElement(): Promise<WebElement> {
-        return this.driver.findElement(By.id("jobStatus"));
+        //return this.driver.findElement(By.id("jobStatus"));
+        const value:string = "jobStatus";
+        return this.driver.findElement(By.css(`[id*='${value}']`));
     }
 
     public static async LoginUserTextBox(): Promise<WebElement> {
@@ -19,8 +21,7 @@ export class ViewJobRolesTestsPage extends basepage {
     // Assertions --------------------------------------------------------------------------------
   
     public static async assertJobRolesTitle(): Promise<void> {
-        //const title = By.id("availableJobRoles");
-        const title = By.xpath("//h2[normalize-space()='Available Job Roles']");
+        const title = By.id("availableJobRoles");
         await this.driver.wait(until.elementLocated(title), 30000);
         const elementBack = await this.driver.findElement(title);
         const newTitleText = await elementBack.getText();
