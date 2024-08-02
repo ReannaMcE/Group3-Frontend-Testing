@@ -12,8 +12,8 @@ const jobRolesResponse: JobRolesResponse = {
     id: 1,
     roleName: "TechLead",
     location: "Belfast",
-    capability: "High",
-    band: "Microsoft",
+    capabilityID: 1,
+    bandID: 1,
     closingDate: testDate,
     status: "open"
 }
@@ -23,8 +23,8 @@ const jobRole: JobRole = {
   id:1,
   roleName: "TechLead",
   location: "Belfast",
-  capability: "High",
-  band: "Microsoft",
+  capabilityID: 1,
+  bandID: 1,
   closingDate: testDate,
   status: "open",
   description: "Description",
@@ -44,8 +44,8 @@ describe('JobRoleService', function () {
         const results = await getJobRoles();
 
         expect(results[0].id).to.deep.equal(jobRolesResponse.id);
-        expect(results[0].band).to.deep.equal(jobRolesResponse.band);
-        expect(results[0].capability).to.deep.equal(jobRolesResponse.capability);
+        expect(results[0].bandID).to.deep.equal(jobRolesResponse.bandID);
+        expect(results[0].capabilityID).to.deep.equal(jobRolesResponse.capabilityID);
         expect(results[0].closingDate).to.deep.equal(jobRolesResponse.closingDate.toISOString());
         expect(results[0].location).to.deep.equal(jobRolesResponse.location);
         expect(results[0].roleName).to.deep.equal(jobRolesResponse.roleName);
@@ -76,8 +76,8 @@ describe('JobRoleService', function () {
         const result = await getJobRoleById("1");
 
         expect(result.id).to.deep.equal(jobRole.id);
-        expect(result.band).to.deep.equal(jobRole.band);
-        expect(result.capability).to.deep.equal(jobRole.capability);
+        expect(result.bandID).to.deep.equal(jobRole.bandID);
+        expect(result.capabilityID).to.deep.equal(jobRole.capabilityID);
         expect(result.closingDate).to.deep.equal(jobRole.closingDate.toISOString());
         expect(result.location).to.deep.equal(jobRole.location);
         expect(result.roleName).to.deep.equal(jobRole.roleName);

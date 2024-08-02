@@ -12,8 +12,8 @@ const jobRolesResponse: JobRolesResponse = {
     id:1,
     roleName: "TechLead",
     location: "Belfast",
-    capability: "High",
-    band: "Microsoft",
+    capabilityID: 1,
+    bandID: 1,
     closingDate: testDate,
     status: "open"
 }
@@ -22,8 +22,8 @@ const jobRole: JobRole = {
   id:1,
   roleName: "TechLead",
   location: "Belfast",
-  capability: "High",
-  band: "Microsoft",
+  capabilityID: 1,
+  bandID: 1,
   closingDate: testDate,
   status: "open",
   description: "Description",
