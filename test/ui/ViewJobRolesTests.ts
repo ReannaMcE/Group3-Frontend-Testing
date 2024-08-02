@@ -44,17 +44,13 @@ describe('View Job Roles Tests', function () {
         await ViewJobRolesTestsPage.assertJobStatusOpen();
     });
 
-    it.only('Header buttons should work', async function () {
+    it('Header buttons should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
             await HeaderTestPage.clickButton('navbarHome', 'home');
 
-            //await ViewJobRolesTestsPage.assertHomePageImg(); // this line is whats broken !!!!!!!
-            // await ViewJobRolesTestsPage.loadPage(page);
-            // await ViewJobRolesTestsPage.assertJobRolesTitle();
-
-            // await HeaderTestPage.clickButton('navbarJobs', 'job roles');
-            // await ViewJobRolesTestsPage.assertJobRolesTitle();
+            await HeaderTestPage.clickButton('navbarJobs', 'job roles');
+            await ViewJobRolesTestsPage.assertJobRolesTitle();
         
         } catch (error) {
             console.error('Test failed:', error);
