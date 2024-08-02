@@ -3,31 +3,33 @@ import { basepage } from './basepage';
 
 export class FooterTestPage extends basepage {
 
-    // Web Elements --------------------------------------------------------------------------------
-    public static async getLink(id: string): Promise<WebElement> {
-        return this.driver.findElement(By.id(id));
+
+    public static async clickFacebook(): Promise<void> {
+        await FooterTestPage.clickLink("facebook");
     }
 
-    // Click links --------------------------------------------------------------------------------
-    public static async clickLink(id: string): Promise<void> {
-        try {
-            const link: WebElement = await this.getLink(id);
-            await this.driver.wait(until.elementIsVisible(link), 10000);
-            await link.click();
-        } catch (error) {
-            console.error('Error clicking the link:', error);
-            throw error;
-        }
+    public static async clickTwitter(): Promise<void> {
+        await FooterTestPage.clickLink("twitter");
     }
 
-
-    // Assertions --------------------------------------------------------------------------------
-    public static async assertAndGoBack(actualUrl: string, page: string): Promise<void> {
-        await this.driver.wait(async () => {
-            const currentUrl = await this.driver.getCurrentUrl();
-            return currentUrl.includes(actualUrl);
-        }, 15000);
-
-        await FooterTestPage.loadPage(page);
+    public static async clickInstagram(): Promise<void> {
+        await FooterTestPage.clickLink("instagram");
     }
+
+    public static async assertFBAndGoBack(page: string): Promise<void> {
+        await FooterTestPage.assertAndGoBack('facebook.com/KainosSoftware', page);
+    }
+    
+    public static async assertTwitterAndGoBack(page: string): Promise<void> {
+        await FooterTestPage.assertAndGoBack('x.com', page);
+    }
+
+    public static async assertIGAndGoBack(page: string): Promise<void> {
+        await FooterTestPage.assertAndGoBack('instagram.com', page);
+    }
+          
+   
 }
+
+
+

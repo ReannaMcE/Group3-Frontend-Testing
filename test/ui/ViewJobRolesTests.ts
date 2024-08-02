@@ -1,15 +1,16 @@
 import { ViewJobRolesTestsPage } from '../ui/ViewJobRolesTestsPage';
 import { HeaderTestPage } from '../ui/HeaderTestPage';
 import { FooterTestPage } from '../ui/FooterTestPage';
+import { basepage } from './basepage';
 
 describe('View Job Roles Tests', function () {
     this.timeout(70000);
     const page:string = 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
     before(async function () {
-        await ViewJobRolesTestsPage.startDriver();
-        FooterTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the footer test uses the same driver
-        HeaderTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the header test uses the same driver
+        await basepage.startDriver();
+        //FooterTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the footer test uses the same driver
+        //HeaderTestPage.driver = ViewJobRolesTestsPage.getDriver(); // the header test uses the same driver
     });
 
     after(async function () {
@@ -24,12 +25,12 @@ describe('View Job Roles Tests', function () {
     it('Footer links should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
-            await FooterTestPage.clickLink("facebook");
-            await FooterTestPage.assertAndGoBack('facebook.com/KainosSoftware', page);
-            await FooterTestPage.clickLink("twitter");
-            await FooterTestPage.assertAndGoBack('x.com', page);
-            await FooterTestPage.clickLink("instagram")
-            await FooterTestPage.assertAndGoBack('instagram.com', page);
+            await FooterTestPage.clickFacebook();
+            await FooterTestPage.assertFBAndGoBack(page);
+            await FooterTestPage.clickTwitter();
+            await FooterTestPage.assertTwitterAndGoBack(page);
+            await FooterTestPage.clickInstagram();
+            await FooterTestPage.assertIGAndGoBack(page);
             await ViewJobRolesTestsPage.assertJobRolesTitle();
         } catch (error) {
             console.error('Test failed:', error);

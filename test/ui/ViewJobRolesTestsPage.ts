@@ -1,13 +1,14 @@
 import { WebElement, By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
 import { basepage } from './basepage';
+import { FooterTestPage } from './FooterTestPage';
+import { HeaderTestPage } from './HeaderTestPage';
 
 export class ViewJobRolesTestsPage extends basepage {
     
 
     // Web Elements --------------------------------------------------------------------------------
     public static async JobStatusElement(): Promise<WebElement> {
-        //return this.driver.findElement(By.id("jobStatus"));
         const value:string = "jobStatus";
         return this.driver.findElement(By.css(`[id*='${value}']`));
     }
