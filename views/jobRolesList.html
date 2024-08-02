@@ -33,8 +33,8 @@
                 <li> 
                     <h3 style="font-size:235%;" id="jobRoleName_{{ loop.index }}"><a href="/jobRoles/{{ jobRole.id }}" style="color:#252d4f;" id="jobRoleNameLink_{{ loop.index }}">{{ jobRole.roleName }}</a></h3> 
                     <h4 style="font-family:'Galano Grotesque', sans-serif;" id="locationMapMarker_{{ loop.index }}"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ jobRole.location }}</h4>
-                    <p id="jobCapability_{{ loop.index }}"><b>Capability: </b>{{ jobRole.capability }}</p> 
-                    <p id="jobBandCapability_{{ loop.index }}"><b>Band: </b>{{ jobRole.band }}</p> 
+                    <p id="jobCapability_{{ loop.index }}"><b>Capability: </b>{{ jobRole.capabilityID }}</p> 
+                    <p id="jobBandCapability_{{ loop.index }}"><b>Band: </b>{{ jobRole.bandID }}</p> 
                     <p id="jobClosingDate_{{ loop.index }}"><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
                     <p id="jobStatus_{{ loop.index }}"><b>Status: </b>{{ jobRole.status }}</p> 
                 </li> 
