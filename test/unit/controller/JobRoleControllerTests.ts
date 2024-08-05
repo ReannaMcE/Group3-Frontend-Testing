@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import { JobRolesResponse } from "../../../src/models/JobRolesResponse";
 import sinon from 'sinon';
 import * as RoleController from "../../../src/controllers/RoleController";
-import { JobRole } from "../../../src/models/JobRole";
 
 
 const testDate = new Date(1721718000000);
@@ -15,20 +14,10 @@ const jobRolesResponse: JobRolesResponse = {
     capabilityName: "engineering",
     bandName: "placement",
     closingDate: testDate,
-    status: "open"
-}
-
-const jobRole: JobRole = {
-  id:1,
-  roleName: "TechLead",
-  location: "Belfast",
-  capabilityID: 1,
-  bandID: 1,
-  closingDate: testDate,
-  status: "open",
-  description: "Description",
-  responsibilities: "Responsibilities",
-  jobSpec: "jobSpecLink"
+    status: "open",
+    description: "Description",
+    responsibilities: "Responsibilities",
+    jobSpec: "jobSpecLink"
 }
 
 describe('RoleContoller', function () {
@@ -73,7 +62,7 @@ describe('RoleContoller', function () {
 
       it('should render view with a single job role when job role is returned', async () => {
 
-        const returnJobRole = jobRole;
+        const returnJobRole = jobRolesResponse;
 
         const stub = sinon.stub(JobRoleService, 'getJobRoleById').resolves(returnJobRole);
 

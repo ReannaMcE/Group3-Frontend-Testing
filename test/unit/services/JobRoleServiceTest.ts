@@ -3,7 +3,6 @@ import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRolesResponse } from "../../../src/models/JobRolesResponse";
 import { getJobRoleById, getJobRoles, URL } from "../../../src/services/JobRoleService";
-import { JobRole } from "../../../src/models/JobRole";
 
 
 const testDate = new Date(1721718000000);
@@ -15,21 +14,10 @@ const jobRolesResponse: JobRolesResponse = {
     capabilityName: "engineering",
     bandName: "placement",
     closingDate: testDate,
-    status: "open"
-}
-
-
-const jobRole: JobRole = {
-  id:1,
-  roleName: "TechLead",
-  location: "Belfast",
-  capabilityID: 1,
-  bandID: 1,
-  closingDate: testDate,
-  status: "open",
-  description: "Description",
-  responsibilities: "Responsibilities",
-  jobSpec: "jobSpecLink"
+    status: "open",
+    description: "Description",
+    responsibilities: "Responsibilities",
+    jobSpec: "jobSpecLink"
 }
 
 const mock = new MockAdapter(axios);
@@ -69,22 +57,22 @@ describe('JobRoleService', function () {
 
       it('should return a jobRole when axios returns a jobRole', async () => {
 
-        const data = jobRole;
+        const data = jobRolesResponse;
 
         mock.onGet(URL + "1").reply(200, data);
 
         const result = await getJobRoleById("1");
 
-        expect(result.id).to.deep.equal(jobRole.id);
-        expect(result.bandID).to.deep.equal(jobRole.bandID);
-        expect(result.capabilityID).to.deep.equal(jobRole.capabilityID);
-        expect(result.closingDate).to.deep.equal(jobRole.closingDate.toISOString());
-        expect(result.location).to.deep.equal(jobRole.location);
-        expect(result.roleName).to.deep.equal(jobRole.roleName);
-        expect(result.status).to.deep.equal(jobRole.status);
-        expect(result.description).to.deep.equal(jobRole.description);
-        expect(result.responsibilities).to.deep.equal(jobRole.responsibilities);
-        expect(result.jobSpec).to.deep.equal(jobRole.jobSpec);
+        expect(result.id).to.deep.equal(jobRolesResponse.id);
+        expect(result.bandName).to.deep.equal(jobRolesResponse.bandName);
+        expect(result.capabilityName).to.deep.equal(jobRolesResponse.capabilityName);
+        expect(result.closingDate).to.deep.equal(jobRolesResponse.closingDate.toISOString());
+        expect(result.location).to.deep.equal(jobRolesResponse.location);
+        expect(result.roleName).to.deep.equal(jobRolesResponse.roleName);
+        expect(result.status).to.deep.equal(jobRolesResponse.status);
+        expect(result.description).to.deep.equal(jobRolesResponse.description);
+        expect(result.responsibilities).to.deep.equal(jobRolesResponse.responsibilities);
+        expect(result.jobSpec).to.deep.equal(jobRolesResponse.jobSpec);
       })
 
       it('should throw Failed to get Job Role error when 500 error returned from axios', async () => {

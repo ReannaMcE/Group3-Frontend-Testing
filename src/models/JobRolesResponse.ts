@@ -5,5 +5,8 @@ export type JobRolesResponse = {
     capabilityName: string,
     bandName: string,
     closingDate: Date,
-    status: string
+    status: string,
+    description: string,
+    responsibilities: string,
+    jobSpec: string
 }
