@@ -19,25 +19,25 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-            <div class="container">
+            <div class="container" id="loginForm">
                 <div class="screen">
                     <div class="screen__content">
                     
                         <form class="form" action="/loginForm" method="post">
                             {% if errormessage %}
-                                <div class="error-container">
-                                    <p class="error-message">{{ errormessage }}</p>
+                                <div class="error-container" id="errorMessageDiv">
+                                    <p class="error-message" id="errorMessage">{{ errormessage }}</p>
                                 </div>
                             {% endif %}
-                            <div class="login__field">
-                                <label for="username" class="visually-hidden">Username</label>
+                            <div class="login__field" id="loginDiv1">
+                                <label for="username" class="visually-hidden" id="usernameTitle">Username</label>
                                 <i class="fa-solid fa-envelope" style = "color: #252d4f;"></i>
 
                                 <input id="username" name="username" value="{{username}}" type="text" class="login__input" placeholder="Email">
                             </div>
                            
-                            <div class="login__field">
-                                <label for="password" class="visually-hidden">Password</label>
+                            <div class="login__field" id="loginDiv2">
+                                <label for="password" class="visually-hidden" id="passwordTitle">Password</label>
                                 <i class="fa-solid fa-lock" style = "color: #252d4f;"></i>
                                 <input id="password" name="password" value="{{password}}" type="password" class="login__input" placeholder="Password">
                             </div>
@@ -48,7 +48,7 @@
                         </form>
                     </div>
                     <div class="screen__background">
-                        <img src="./img/loginBackground.jpg" alt = "loginBackground" style="object-fit: contain;">
+                        <img src="./img/loginBackground.jpg" id="loginBackgroundImg" alt = "loginBackground" style="object-fit: contain;">
                         <span class="screen__background__shape screen__background__shape1"></span>
                     </div>      
                 </div>
