@@ -11,7 +11,7 @@
     },
     "include": [
         "src/**/*"
-    ],
+, "test/unit/middleware/AuthMiddlewareTest.ts"    ],
     "exclude": [
         "./node_modules/**/*",
         "./dist/**/*"

@@ -1,7 +1,7 @@
 import express from "express";
 import { allowRoles } from "../../../src/middleware/AuthMiddleware";
 import { JwtToken, UserRole } from "../../../src/models/JwtToken";
-import * from "../../../src/middleware/jwtDecodeWrapper";
+import jwtDecode from "../../../src/middleware/jwtDecodeWrapper";
 import sinon from "sinon";
 import { expect } from 'chai';
 
@@ -40,7 +40,7 @@ describe("allowRoles middleware", () => {
     it("should return 403 if user role is not authorised", () => {
         req.session.token = "fakeToken";
         const decodedToken: JwtToken = { Role: UserRole.User } as JwtToken;
-        sinon.stub(jwtDecode, "default").returns(decodedToken); // Stub the default export
+        sinon.stub(jwtDecode, "jwtDecode").returns(decodedToken); // Stub the default export
 
         const middleware = allowRoles([UserRole.Admin]);
 
@@ -53,7 +53,7 @@ describe("allowRoles middleware", () => {
     it("should call next if user role is authorised", () => {
         req.session.token = "fakeToken";
         const decodedToken: JwtToken = { Role: UserRole.Admin } as JwtToken;
-        sinon.replace(jwtDecode, "default", sinon.fake.returns(decodedToken));
+        sinon.replace(jwtDecode, "jwtDecode", sinon.fake.returns(decodedToken));
 
         const middleware = allowRoles([UserRole.Admin]);
 
