@@ -22,17 +22,16 @@ describe('RoleContoller', function () {
         sinon.restore();
     });
 
-    describe('getJobRoles', function () {
+    describe('getAllJobRoles', function () {
       it('should render view with job roles when job roles returned', async () => {
         const jobRolesList = [jobRolesResponse];
 
         const stub = sinon.stub(JobRoleService, 'getJobRoles').resolves(jobRolesList);
 
-        const req = {};
-        const res = { render: sinon.spy() };
+        const req = { headers: { authorization: 'Bearer token' } };
+        const res = { render: sinon.spy(), locals: {} };
 
         await RoleController.getAllJobRoles(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
-
 
         expect(res.render.calledOnce).to.be.true;
         expect(res.render.calledWith('jobRolesList.html', { baseURL: process.env.AWS_URL || 'http://localhost:3000', roles: jobRolesList })).to.be.true;
@@ -44,7 +43,7 @@ describe('RoleContoller', function () {
         const errorMessage: string = 'Error message';
         sinon.stub(JobRoleService, 'getJobRoles').rejects(new Error(errorMessage));
 
-        const req = { };
+        const req = { headers: { authorization: 'Bearer token' } };
         const res = { render: sinon.spy(), locals: { errormessage: '' } };
 
         await RoleController.getAllJobRoles(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
