@@ -31,7 +31,8 @@ describe('RoleContoller', function () {
 
         const stub = sinon.stub(JobRoleService, 'getJobRoles').resolves(jobRolesList);
 
-        const req = { headers: { authorization: 'Bearer token' } };
+        const req = { headers: { authorization: 
+          'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjI5Mzc0NjAsImV4cCI6MTcyMjk2NjI2MCwiUm9sZSI6MSwic3ViIjoiYWRtaW4iLCJpc3MiOiJBZ2lsZSBhbmQgRnJhZ2lsZSJ9.1a48y8-1s1aHlbe79m3loZdt1iOBJxLLymNcq4FM198' } };
         const res = { render: sinon.spy(), locals: {} };
 
         await RoleController.getAllJobRoles(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
@@ -46,7 +47,8 @@ describe('RoleContoller', function () {
         const errorMessage: string = 'Error message';
         sinon.stub(JobRoleService, 'getJobRoles').rejects(new Error(errorMessage));
 
-        const req = { headers: { authorization: 'Bearer token' } };
+        const req = { headers: { authorization: 
+          'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjI5Mzc0NjAsImV4cCI6MTcyMjk2NjI2MCwiUm9sZSI6MSwic3ViIjoiYWRtaW4iLCJpc3MiOiJBZ2lsZSBhbmQgRnJhZ2lsZSJ9.1a48y8-1s1aHlbe79m3loZdt1iOBJxLLymNcq4FM198' } };
         const res = { render: sinon.spy(), locals: { errormessage: '' } };
 
         await RoleController.getAllJobRoles(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
