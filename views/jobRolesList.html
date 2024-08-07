@@ -24,10 +24,8 @@
 
     <section class="job-roles"> 
         <h2 id="availableJobRoles" style="text-align: center; font-size: 325%;">Available Job Roles</h2>
-        <a href="#map-container" class="scroll-link">Explore our Locations</a>
+        <h3><a href="#map-container" class="scroll-link">Explore our Locations</a></h3>
         <ul> 
-            {% set job_roles_json = roles|json_encode %}          
-            <script id="job-roles-data" type="application/json">{{ job_roles_json | raw }}</script>
             
             {% for jobRole in roles %}
             <li> 
