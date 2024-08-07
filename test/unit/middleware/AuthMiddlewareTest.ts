@@ -28,7 +28,7 @@ describe('allowRoles middleware', function () {
         const decodedToken: JwtToken = { Role: UserRole.User };
         const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
-        const req = { session: { token: 'mockToken' } } as express.Request;
+        const req = { session: { token: 'mockToken' } } as unknown as express.Request; 
         const res = {
             status: sinon.stub().returnsThis(),
             send: sinon.spy()
@@ -47,7 +47,7 @@ describe('allowRoles middleware', function () {
         const decodedToken: JwtToken = { Role: UserRole.Admin };
         const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
-        const req = { session: { token: 'mockToken' } } as express.Request;
+        const req = { session: { token: 'mockToken' } } as unknown as express.Request;
         const res = {
             status: sinon.stub().returnsThis(),
             send: sinon.spy()
