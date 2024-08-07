@@ -1,37 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" type="text/css" href="./css/style.css">
-        <link rel="stylesheet" type="text/css" href="./css/jobRolesListStyle.css">
-        <title>Job Roles</title>
-        <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
-    </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/jobRolesListStyle.css">
+    <link rel="stylesheet" type="text/css" href="./css/mapInnovation.css">
 
-    <body>
-        {% include "header.html" %}
+    <title>Job Roles</title>
+    <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
 
-        <section class="job-roles"> 
-            <h2 id="availableJobRoles" style="text-align: center; font-size: 325%;">Available Job Roles</h2>
-            <ul> 
-                {% for jobRole in roles %}
-                <li> 
-                    <h3 style="font-size:235%;" id="jobRoleName_{{ loop.index }}"><a href="/jobRoles/{{ jobRole.id }}" style="color:#252d4f;" id="jobRoleNameLink_{{ loop.index }}">{{ jobRole.roleName }}</a></h3> 
-                    <h4 style="font-family:'Galano Grotesque', sans-serif;" id="locationMapMarker_{{ loop.index }}"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ jobRole.location }}</h4>
-                    <p id="jobCapability_{{ loop.index }}"><b>Capability: </b>{{ jobRole.capabilityName }}</p> 
-                    <p id="jobBandCapability_{{ loop.index }}"><b>Band: </b>{{ jobRole.bandName }}</p> 
-                    <p id="jobClosingDate_{{ loop.index }}"><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
-                    <p id="jobStatus_{{ loop.index }}"><b>Status: </b>{{ jobRole.status }}</p> 
-                </li> 
-                {% endfor %} 
-            </ul>
-        </section> 
-        {% include "footer.html" %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc-1fAqm7NKlFxoH4lVXdXHSqLgTvh2tw"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@googlemaps/markerclustererplus@2.0.0/dist/markerclustererplus.min.js"></script>
+    <script src="./scripts/map.js" type="module" defer></script>
+</head>
 
-    </body>
+<body>
+    {% include "header.html" %}
+
+    <section class="job-roles"> 
+        <h2 id="availableJobRoles" style="text-align: center; font-size: 325%;">Available Job Roles</h2>
+        <a href="#map-container" class="scroll-link">Explore our Locations</a>
+        <ul> 
+            {% set job_roles_json = roles|json_encode %}          
+            <script id="job-roles-data" type="application/json">{{ job_roles_json | raw }}</script>
+            
+            {% for jobRole in roles %}
+            <li> 
+                <h3 style="font-size:235%;" id="jobRoleName_{{ loop.index }}"><a href="/jobRoles/{{ jobRole.id }}" style="color:#252d4f;" id="jobRoleNameLink_{{ loop.index }}">{{ jobRole.roleName }}</a></h3> 
+                <h4 style="font-family:'Galano Grotesque', sans-serif;" id="locationMapMarker_{{ loop.index }}"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ jobRole.location }}</h4>
+                <p id="jobCapability_{{ loop.index }}"><b>Capability: </b>{{ jobRole.capabilityName }}</p> 
+                <p id="jobBandCapability_{{ loop.index }}"><b>Band: </b>{{ jobRole.bandName }}</p> 
+                <p id="jobClosingDate_{{ loop.index }}"><b>Closing Date: </b>{{ jobRole.closingDate | date }}</p> 
+                <p id="jobStatus_{{ loop.index }}"><b>Status: </b>{{ jobRole.status }}</p> 
+            </li> 
+            {% endfor %} 
+        </ul>
+    </section> 
+
+    <div id="map-container" aria-labelledby="availableJobRoles">
+        <div id="map" aria-label="Map showing job roles and their locations"></div>
+        <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+    </div>
+
+    {% include "footer.html" %}
+</body>
 </html>
