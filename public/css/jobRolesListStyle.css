@@ -1,14 +1,26 @@
 .job-roles { 
     margin: 2rem 0; 
     margin-right: 50px;
+    margin-top: 25px;
     } 
 
     .job-roles h2 { 
     font-family: 'Galano Grotesque Alt', sans-serif;
     font-family: 'Galano Grotesque', sans-serif;
     font-size: 40px; 
-    margin-bottom: 1rem; 
+    margin-bottom: 10px;
+
     } 
+
+    .job-roles h5 { 
+        font-family: 'Galano Grotesque Alt', sans-serif;
+        font-family: 'Galano Grotesque', sans-serif;
+
+        margin-top: 1px;
+        text-align: center;
+        } 
+
+    
 
     .job-roles ul { 
     list-style: none; 
@@ -38,3 +50,20 @@
     font-size: 14px; 
     margin-bottom: 10px; 
     } 
+
+
+    .scroll-link-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+
+    }
+    .scroll-link {
+        text-decoration: none;
+        color: #007bff; 
+        font-size: 18px;
+
+    }
+    .scroll-link:hover {
+        text-decoration: underline;
+    }

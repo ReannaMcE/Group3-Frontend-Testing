@@ -24,9 +24,11 @@
 
     <section class="job-roles"> 
         <h2 id="availableJobRoles" style="text-align: center; font-size: 325%;">Available Job Roles</h2>
-        <h3><a href="#map-container" class="scroll-link">Explore our Locations</a></h3>
+
+       <h5><a href="#map-container" class="scroll-link">Explore our Locations</a></h5>
+
+        
         <ul> 
-            
             {% for jobRole in roles %}
             <li> 
                 <h3 style="font-size:235%;" id="jobRoleName_{{ loop.index }}"><a href="/jobRoles/{{ jobRole.id }}" style="color:#252d4f;" id="jobRoleNameLink_{{ loop.index }}">{{ jobRole.roleName }}</a></h3> 

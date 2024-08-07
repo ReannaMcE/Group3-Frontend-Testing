@@ -6,7 +6,6 @@ import session from "express-session";
 import { getAllJobRoles, getHomePage, getSingleJobRole } from "./controllers/RoleController";
 import { dateFilter } from "./filter/DateFilter";
 import  AuthRoutes from "./Routes/AuthRoutes";
-import cors from "cors";
 
 
 const app = express();
@@ -15,15 +14,6 @@ const env = nunjucks.configure('views',{
   autoescape: true,
   express: app
 });
-
-
-
-let corsOptions = {
-  origin : ['http://localhost:3000'],
-}
-
-app.use(cors(corsOptions))
-
 
 app.use(express.static('public'));
 app.set('view engine', 'html')
