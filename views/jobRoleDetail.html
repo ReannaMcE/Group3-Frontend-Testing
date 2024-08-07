@@ -23,7 +23,7 @@
     <section class="job-roles">
         {% if jobRole %}
         <h2 id="jobRoleName" style="text-align: center;">{{ jobRole.roleName }}</h2>
-        <div class="scroll-link-container">
+        <div class="scroll-link-container" aria-label="Scroll">
         
         </div>
         <ul>
@@ -40,9 +40,10 @@
                 <p id="closingDate"><b>Closing Date:</b> {{ jobRole.closingDate | date }}</p>
                 <p id="jobSpec"><a title="Sharepoint link to Job Role Spec" href="{{ jobRole.jobSpec }}" target="_blank">Click here to see job specification</a></p>
 
-                <div id="map-container">
-                    <div id="map"></div>
+                <div id="map-container" aria-label="Map showing the job location">
+                    <div id="map" aria-label="Map showing location"></div>
                 </div>
+                
 
                 <div class="directions-button-container">
                     <button class="directions-button" onclick="calculateAndDisplayRoute()">Get Directions</button>

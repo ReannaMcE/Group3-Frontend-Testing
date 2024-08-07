@@ -80,14 +80,14 @@ async function initMap() {
             var marker = new google.maps.Marker({
                 position: position,
                 map: map,
-                title: location // Location name appears on hover
+                title: location
             });
 
             var infoWindowContent = `
-                <div class="custom-info-window">
+                <div class="custom-info-window" aria-label="Info window">
                     <h3>${location}</h3>
                     <p>${address}</p>
-                    <a href="${url}" target="_blank">Contact Us</a>
+                    <a href="${url}" target="_blank" aria-label="More information about ${location}">Contact Us</a>
                 </div>
             `;
 
@@ -108,7 +108,7 @@ async function initMap() {
         });
     }
 
-    // Add markers for all locations
+
     Object.keys(locations).forEach(location => {
         createMarker(location, locations[location].address, locations[location].url);
     });
