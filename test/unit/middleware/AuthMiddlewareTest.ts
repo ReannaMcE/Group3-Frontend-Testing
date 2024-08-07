@@ -1,64 +1,65 @@
 import express from "express";
-import { allowRoles } from "../../../src/middleware/AuthMiddleware";
-import { JwtToken, UserRole } from "../../../src/models/JwtToken";
-import jwtDecode from "../../../src/middleware/jwtDecodeWrapper";
-import sinon from "sinon";
 import { expect } from 'chai';
+import sinon from 'sinon';
+import { allowRoles } from '../../../src/middleware/AuthMiddleware';
+import * as jwtDecode from 'jwt-decode';
+import { JwtToken, UserRole } from "../../../src/models/JwtToken";
 
-
-describe("allowRoles middleware", () => {
-    let req: express.Request;
-    let res: express.Response;
-    let next: sinon.SinonStub;
-
-    beforeEach(() => {
-        req = {
-            session: {}
-        } as express.Request;
-
-        res = {
-            status: sinon.stub().returnsThis(),
-            send: sinon.stub()
-        } as unknown as express.Response;
-
-        next = sinon.stub() as sinon.SinonStub;
-    });
-
+describe('allowRoles middleware', function () {
     afterEach(() => {
         sinon.restore();
     });
 
-    it("should return 401 if no token is present", () => {
-        const middleware = allowRoles([UserRole.Admin]);
+    it('should return 401 if no token is present', () => {
+        const req = { session: {} } as express.Request;
+        const res = {
+            status: sinon.stub().returnsThis(),
+            send: sinon.spy()
+        } as unknown as express.Response;
+        const next = sinon.spy();
 
-        middleware(req, res, next as unknown as express.NextFunction);
+        allowRoles([UserRole.Admin])(req, res, next);
 
-        expect((res.status as sinon.SinonStub).calledWith(401)).to.be.true;
-        expect((res.send as sinon.SinonStub).calledWith("Not logged in")).to.be.true;
+        expect((res.status as sinon.SinonStub).calledOnceWith(401)).to.be.true;
+        expect((res.send as sinon.SinonStub).calledOnceWith('Not logged in')).to.be.true;
     });
 
-    it("should return 403 if user role is not authorised", () => {
-        req.session.token = "fakeToken";
-        const decodedToken: JwtToken = { Role: UserRole.User } as JwtToken;
-        sinon.stub(jwtDecode, "jwtDecode").returns(decodedToken); // Stub the default export
+    it('should return 403 if user role is not authorised', () => {
+        const decodedToken: JwtToken = { Role: UserRole.User };
+        const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken);
 
-        const middleware = allowRoles([UserRole.Admin]);
+        const req = { session: { token: 'mockToken' } } as express.Request;
+        const res = {
+            status: sinon.stub().returnsThis(),
+            send: sinon.spy()
+        } as unknown as express.Response;
+        const next = sinon.spy();
 
-        middleware(req, res, next as unknown as express.NextFunction);
+        allowRoles([UserRole.Admin])(req, res, next);
 
-        expect((res.status as sinon.SinonStub).calledWith(403)).to.be.true;
-        expect((res.send as sinon.SinonStub).calledWith("User role not authorised for action")).to.be.true;
+        expect((res.status as sinon.SinonStub).calledOnceWith(403)).to.be.true;
+        expect((res.send as sinon.SinonStub).calledOnceWith('User role not authorised for action')).to.be.true;
+
+        jwtDecodeStub.restore();
     });
 
-    it("should call next if user role is authorised", () => {
-        req.session.token = "fakeToken";
-        const decodedToken: JwtToken = { Role: UserRole.Admin } as JwtToken;
-        sinon.replace(jwtDecode, "jwtDecode", sinon.fake.returns(decodedToken));
+    it('should call next if user role is authorised', () => {
+        const decodedToken: JwtToken = { Role: UserRole.Admin };
+        const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken);
 
-        const middleware = allowRoles([UserRole.Admin]);
+        const req = { session: { token: 'mockToken' } } as express.Request;
+        const res = {
+            status: sinon.stub().returnsThis(),
+            send: sinon.spy()
+        } as unknown as express.Response;
+        const next = sinon.spy();
 
-        middleware(req, res, next as unknown as express.NextFunction);
+        allowRoles([UserRole.Admin])(req, res, next);
 
         expect(next.calledOnce).to.be.true;
+        expect((res.status as sinon.SinonStub).notCalled).to.be.true;
+        expect((res.send as sinon.SinonStub).notCalled).to.be.true;
+
+        jwtDecodeStub.restore();
     });
 });
