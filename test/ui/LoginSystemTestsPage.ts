@@ -7,7 +7,7 @@ export class LoginTestsPage extends basepage {
     // Web Elements --------------------------------------------------------------------------------
 
     public static async HomePageImg(): Promise<WebElement> {
-        return this.driver.findElement(By.xpath("//img[@id='homepageBackgroundImage']"));
+        return this.driver.findElement(By.id("homepageBackgroundImage"));
     }
 
     public static async LoginUserEmail(): Promise<WebElement> {
