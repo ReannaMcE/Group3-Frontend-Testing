@@ -6,7 +6,7 @@ import "core-js/stable/atob";
 export const allowRoles = (allowedRoles: UserRole[]) => {
     return (req: express.Request, res: express.Response, next: express.NextFunction) => {
         if (!req.session.token) {
-            return res.status(401).send('Not logged in');
+            return res.render('loginForm.html');
         }
 
         const decodedToken: JwtToken = jwtDecode(req.session.token);
