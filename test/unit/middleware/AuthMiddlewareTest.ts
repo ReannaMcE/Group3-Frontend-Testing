@@ -14,14 +14,16 @@ describe('allowRoles middleware', function () {
         const req = { session: {} } as express.Request;
         const res = {
             status: sinon.stub().returnsThis(),
-            send: sinon.spy()
+            send: sinon.spy(),
+            redirect: sinon.spy()
         } as unknown as express.Response;
         const next = sinon.spy();
 
         allowRoles([UserRole.Admin])(req, res, next);
 
         expect((res.status as sinon.SinonStub).calledOnceWith(401)).to.be.true;
-        expect((res.send as sinon.SinonStub).calledOnceWith('Not logged in')).to.be.true;
+        expect((res.redirect as sinon.SinonSpy).calledOnceWith('/loginForm')).to.be.true;
+        expect(next.called).to.be.false;
     });
 
     it('should return 403 if user role is not authorised', () => {
