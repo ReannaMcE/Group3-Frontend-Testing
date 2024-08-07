@@ -41,13 +41,14 @@ describe('RoleController', function () {
             };
             const next = sinon.spy();
 
-            allowRoles([UserRole.Admin])(req as any, res as any, next);
+            allowRoles([UserRole.Admin])(req as any, res as any, next); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
             await RoleController.getAllJobRoles(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
             
             expect(res.render.calledOnce).to.be.true;
             expect(res.render.calledWith('jobRolesList.html', { baseURL: process.env.AWS_URL || 'http://localhost:3000', roles: jobRolesList })).to.be.true;
 
+            stub.restore;
         });
 
         it('should render view with error message when error thrown', async () => {
@@ -63,7 +64,7 @@ describe('RoleController', function () {
             };
             const next = sinon.spy();
 
-            allowRoles([UserRole.Admin])(req as any, res as any, next);
+            allowRoles([UserRole.Admin])(req as any, res as any, next); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
             await RoleController.getAllJobRoles(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
@@ -86,7 +87,7 @@ describe('RoleController', function () {
             };
             const next = sinon.spy();
 
-            allowRoles([UserRole.Admin])(req as any, res as any, next);
+            allowRoles([UserRole.Admin])(req as any, res as any, next); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
             await RoleController.getSingleJobRole(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
@@ -109,7 +110,7 @@ describe('RoleController', function () {
           };
           const next = sinon.spy();
 
-          allowRoles([UserRole.Admin])(req as any, res as any, next);
+          allowRoles([UserRole.Admin])(req as any, res as any, next); // eslint-disable-line  @typescript-eslint/no-explicit-any
   
           await RoleController.getSingleJobRole(req as any, res as any); // eslint-disable-line  @typescript-eslint/no-explicit-any
   

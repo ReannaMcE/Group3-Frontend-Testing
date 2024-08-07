@@ -6,7 +6,7 @@ axios.defaults.baseURL = process.env.API_URL || 'http://localhost:8080';
 
 export const URL: string = "/api/job-roles/";
 
-export const getJobRoles = async (token: String): Promise<JobRolesResponse[]> => {
+export const getJobRoles = async (token: string): Promise<JobRolesResponse[]> => {
     try {
         const response: AxiosResponse = await axios.get(URL, getHeader(token));
 
@@ -16,7 +16,7 @@ export const getJobRoles = async (token: String): Promise<JobRolesResponse[]> =>
     }
 }
 
-export const getJobRoleById = async (id: string, token: String): Promise<JobRolesResponse> => {
+export const getJobRoleById = async (id: string): Promise<JobRolesResponse> => {
     try {
         const response: AxiosResponse = await axios.get(URL + id);
 

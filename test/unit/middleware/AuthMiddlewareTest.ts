@@ -26,7 +26,7 @@ describe('allowRoles middleware', function () {
 
     it('should return 403 if user role is not authorised', () => {
         const decodedToken: JwtToken = { Role: UserRole.User };
-        const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken);
+        const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
         const req = { session: { token: 'mockToken' } } as express.Request;
         const res = {
@@ -45,7 +45,7 @@ describe('allowRoles middleware', function () {
 
     it('should call next if user role is authorised', () => {
         const decodedToken: JwtToken = { Role: UserRole.Admin };
-        const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken);
+        const jwtDecodeStub = sinon.stub(jwtDecode as any, 'jwtDecode').returns(decodedToken); // eslint-disable-line  @typescript-eslint/no-explicit-any
 
         const req = { session: { token: 'mockToken' } } as express.Request;
         const res = {
