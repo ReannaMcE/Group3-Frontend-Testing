@@ -1,4 +1,3 @@
-import { ViewJobRolesTestsPage } from '../ui/ViewJobRolesTestsPage';
 import { basepage } from './basepage';
 import { LoginTestsPage } from './LoginSystemTestsPage';
 import { By, until } from 'selenium-webdriver';
