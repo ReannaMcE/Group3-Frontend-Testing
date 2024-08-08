@@ -20,6 +20,7 @@ export const logout = async (req: express.Request, res: express.Response): Promi
         if (err) {
             res.status(500).send('Failed to log out');
         } else {
+            res.clearCookie('jwtToken');
             res.redirect(200,'/loginForm');    
         }
     });
