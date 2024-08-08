@@ -20,6 +20,15 @@ const env = nunjucks.configure('views',{
 app.use(express.static('public'));
 app.set('view engine', 'html')
 
+
+env.addFilter('json_encode', function(value) {
+  return JSON.stringify(value);
+});
+
+env.addFilter('raw', function(value) {
+  return value;
+});
+
 env.addFilter('date',dateFilter);
 
 app.use(bodyParser.json())

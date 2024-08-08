@@ -1,53 +1,171 @@
 <!DOCTYPE html>
-<html lang = "en">
- 
-    <head>
-        <link rel="stylesheet" type="text/css" href="../../css/style.css">
-        <link rel="stylesheet" type="text/css" href="../../css/jobRolesListStyle.css">
-        <title>Job Roles</title>
-        <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 
-    </head>
- 
-    <body>
-        {% include "header.html" %}
-        <section class="job-roles">
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jobRolesListStyle.css">
+    <link rel="stylesheet" type="text/css" href="../../css/mapInnovation.css">
+    <title>Job Roles</title>
+    <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc-1fAqm7NKlFxoH4lVXdXHSqLgTvh2tw&libraries=places"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@googlemaps/markerclustererplus@2.0.0/dist/markerclustererplus.min.js"></script>
 
-            {% if jobRole %}
-            <h2 id="jobRoleName" style = "text-align: center;">{{ jobRole.roleName }}</h2>
-            <ul>
-                <li>
-                   <h3 id="mapMarker" style="font-family:''Galano Grotesque', sans-serif';"><i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}</h3>
+</head>
+<body>
+    {% include "header.html" %}
+    <section class="job-roles">
+        {% if jobRole %}
+        <h2 id="jobRoleName" style="text-align: center;">{{ jobRole.roleName }}</h2>
+        <div class="scroll-link-container" aria-label="Scroll">
+        
+        </div>
+        <ul>
+            <li>
+                <h3 id="mapMarker" style="font-family:''Galano Grotesque', sans-serif';">
+                    <i class="fa fa-map-marker " aria-hidden="true"></i> {{ jobRole.location }}
+                </h3>
+                <h4 id="description">Description</h4>
+                <p id="description">{{ jobRole.description }}</p>
+                <h4 id="responsibilities"> Responsibilities</h4>
+                <p id="responsibilities">{{ jobRole.responsibilities }}</p>
+                <p id="capability"><b>Capability: </b>{{ jobRole.capabilityName }}</p>
+                <p id="ban"><b>Band: </b>{{ jobRole.bandName }}</p>
+                <p id="closingDate"><b>Closing Date:</b> {{ jobRole.closingDate | date }}</p>
+                <p id="jobSpec"><a title="Sharepoint link to Job Role Spec" href="{{ jobRole.jobSpec }}" target="_blank">Click here to see job specification</a></p>
 
-                    <h4 id="description">Description</h4>
-                    <p id="description">{{ jobRole.description }}</p>
-
-                    <h4 id="responsibilities"> Responsibilities</h4>
-                    <p id="responsibilities">{{ jobRole.responsibilities }}</p>
-
+                <div id="map-container" aria-label="Map showing the job location">
+                    <div id="map" aria-label="Map showing location"></div>
+                </div>
                 
-                    <p id="capability"><b>Capability: </b>{{ jobRole.capabilityName }}</p>
-                    <p id="ban"><b>Band: </b>{{ jobRole.bandName }}</p>
-                    <p id="closingDate"> <b>Closing Date:</b> {{ jobRole.closingDate | date }}</p>
-                    <p id="jobSpec"><a title="Sharepoint link to Job Role Spec" href="{{ jobRole.jobSpec }}" target="_blank">Click here to see job specification</a></p>
-                    
-                </li>
-            </ul>
-            {% else %}
-            Job Role does not exist 
-            {% endif %}
-          
-        </section>
-        {% include "footer.html" %}
 
-    </body>
+                <div class="directions-button-container">
+                    <button class="directions-button" onclick="calculateAndDisplayRoute()">Get Directions</button>
+                </div>
+
+                <div id="directions-panel"></div>
+            </li>
+        </ul>
+        {% else %}
+        Job Role does not exist 
+        {% endif %}
+    </section>
+    {% include "footer.html" %}
+    
+    <script>
+        let map;
+        let directionsService;
+        let directionsRenderer;
+
+        const locationMapping = {
+            'Belfast': '4-6 Upper Cres, Belfast BT7 1NT',
+            'Birmingham': 'Victoria Square, Birmingham B1 1BD',
+            'Derry': '10 Clarendon St, Derry BT48 7ER',
+            'Dublin': '1 Harcourt Street, Dublin 2',
+            'London': '2nd Floor, 21 Farringdon Rd, London EC1M 3HA',
+            'Copenhagen': 'H.C. Andersens Boulevard 8, Copenhagen',
+            'Gdansk': '3 Grunwaldzka Street, Gdansk',
+            'Helsinki': '1 Aleksanterinkatu, Helsinki',
+            'Paris': '10 Rue de la Paix, Paris',
+            'Wommelgem': '10 Wommelgem Street, Wommelgem',
+            'Buenos Aires': 'Av. Leandro N. Alem 50, Buenos Aires',
+            'Indianapolis': '300 E Market St, Indianapolis',
+            'Toronto': '123 King St W, Toronto'
+        };
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: { lat: 51.5074, lng: -0.1278 }
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            const location = '{{ jobRole.location }}';
+            if (location) {
+                const address = locationMapping[location];
+                if (address) {
+                    geocodeAddress(address);
+                } else {
+                    alert('Address not found for the given location.');
+                }
+            }
+        }
+
+        function geocodeAddress(address) {
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    const position = results[0].geometry.location;
+                    map.setCenter(position);
+                    new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: address
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function calculateAndDisplayRoute() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    const location = '{{ jobRole.location }}';
+                    const address = locationMapping[location];
+
+                    if (address) {
+                        directionsService.route({
+                            origin: userLocation,
+                            destination: address,
+                            travelMode: 'DRIVING'
+                        }, function(response, status) {
+                            if (status === 'OK') {
+                                directionsRenderer.setDirections(response);
+                                displayDirections(response);
+                            } else {
+                                alert('Directions request failed due to ' + status);
+                            }
+                        });
+                    } else {
+                        alert('Address not found for the given location.');
+                    }
+                }, function() {
+                    alert("Geolocation is not supported by this browser or permission denied.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function displayDirections(response) {
+            const directionsPanel = document.getElementById('directions-panel');
+            directionsPanel.innerHTML = '';
+            directionsPanel.style.display = 'block';
+
+            const directions = response.routes[0].legs[0].steps;
+            if (directions.length > 0) {
+                directions.forEach((step, index) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.innerHTML = `<b>Step ${index + 1}:</b> ${step.instructions}`;
+                    directionsPanel.appendChild(stepElement);
+                });
+            } else {
+                directionsPanel.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initMap);
+    </script>
+</body>
 </html>
- 
