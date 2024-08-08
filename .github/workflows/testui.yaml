@@ -3,8 +3,8 @@ name: Run UI Tests
 on: 
   schedule:
     - cron: '0 0 * * *' # This runs the workflow at midnight UTC every day
-    - cron: '55 13 * * *'
-    - cron: '55 12 * * *'
+    - cron: '00 14 * * *'
+    - cron: '00 13 * * *'
 jobs:
   test:
     runs-on: ubuntu-latest
