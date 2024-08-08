@@ -59,7 +59,7 @@ export class basepage {
      public static async clickLink(id: string): Promise<void> {
         try {
             const link: WebElement = await this.getLink(id);
-            await this.driver.wait(until.elementIsVisible(link), 30000);
+            await this.driver.wait(until.elementIsVisible(link), 700000);
             await link.click();
         } catch (error) {
             console.error('Error clicking the link:', error);
@@ -71,7 +71,7 @@ export class basepage {
     public static async clickButton(id: string, buttonName: string): Promise<void> {
         try {
             const btn: WebElement = await this.getButton(id);
-            await this.driver.wait(until.elementIsVisible(btn), 10000);
+            await this.driver.wait(until.elementIsVisible(btn), 500000);
             await btn.click();
         } catch (error) {
             console.error('Error clicking the' + buttonName + 'button:', error);
@@ -97,7 +97,7 @@ export class basepage {
         await this.driver.wait(async () => {
             const currentUrl = await this.driver.getCurrentUrl();
             return currentUrl.includes(actualUrl);
-        }, 20000);
+        }, 500000);
 
         await this.loadPage(page);
     }

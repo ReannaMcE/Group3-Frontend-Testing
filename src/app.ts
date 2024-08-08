@@ -6,6 +6,8 @@ import session from "express-session";
 import { getAllJobRoles, getHomePage, getSingleJobRole } from "./controllers/RoleController";
 import { dateFilter } from "./filter/DateFilter";
 import  AuthRoutes from "./Routes/AuthRoutes";
+import { UserRole } from "./models/JwtToken";
+import { allowRoles } from "./middleware/AuthMiddleware";
 
 
 const app = express();
@@ -39,6 +41,6 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/jobRoles', getAllJobRoles);
-app.get('/homepage' , getHomePage);
-app.get('/jobRoles/:id', getSingleJobRole);
+app.get('/jobRoles', allowRoles([UserRole.Admin, UserRole.User]), getAllJobRoles);
+app.get('/homepage' , allowRoles([UserRole.Admin, UserRole.User]), getHomePage);
+app.get('/jobRoles/:id', allowRoles([UserRole.Admin, UserRole.User]), getSingleJobRole);

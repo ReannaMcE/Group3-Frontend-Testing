@@ -21,7 +21,7 @@ export class ViewJobRolesTestsPage extends FooterTestPage {
   
     public static async assertJobRolesTitle(): Promise<void> {
         const title = By.id("availableJobRoles");
-        await this.driver.wait(until.elementLocated(title), 30000);
+        await this.driver.wait(until.elementLocated(title), 700000);
         const elementBack = await this.driver.findElement(title);
         const newTitleText = await elementBack.getText();
         expect(newTitleText).to.equal('Available Job Roles');

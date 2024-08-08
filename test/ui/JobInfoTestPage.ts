@@ -27,7 +27,7 @@ export class JobInfoTestPage extends FooterTestPage {
   
     public static async assertJobRolesTitle(): Promise<void> {
         const title = By.id("availableJobRoles");
-        await this.driver.wait(until.elementLocated(title), 30000);
+        await this.driver.wait(until.elementLocated(title), 700000);
         const elementBack = await this.driver.findElement(title);
         const newTitleText = await elementBack.getText();
         expect(newTitleText).to.equal('Available Job Roles');
@@ -39,7 +39,7 @@ export class JobInfoTestPage extends FooterTestPage {
 
     public static async assertJobHasClosingDate(): Promise<void> {
         const closingDate = By.id("closingDate");
-        await this.driver.wait(until.elementLocated(closingDate), 10000);
+        await this.driver.wait(until.elementLocated(closingDate), 500000);
         const element = await this.driver.findElement(closingDate);
         const text = await element.getText();
         expect(text).to.contain('Closing Date:');

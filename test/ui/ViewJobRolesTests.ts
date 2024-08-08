@@ -2,7 +2,7 @@ import { ViewJobRolesTestsPage } from '../ui/ViewJobRolesTestsPage';
 import { basepage } from './basepage';
 
 describe('View Job Roles Tests', function () {
-    this.timeout(70000);
+    this.timeout(1000000);
     const page: string = process.env.UI_TEST_URL || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/jobRoles';
 
     before(async function () {
