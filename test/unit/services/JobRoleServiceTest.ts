@@ -21,15 +21,17 @@ const jobRolesResponse: JobRolesResponse = {
 }
 
 const mock = new MockAdapter(axios);
+const token = "sample-token";
 
 describe('JobRoleService', function () {
     describe('getJobRoles', function () {
       it('should return jobRoles from response', async () => {
         const data = [jobRolesResponse];
+        
 
         mock.onGet(URL).reply(200, data);
 
-        const results = await getJobRoles();
+        const results = await getJobRoles(token);
 
         expect(results[0].id).to.deep.equal(jobRolesResponse.id);
         expect(results[0].bandName).to.deep.equal(jobRolesResponse.bandName);
@@ -44,7 +46,7 @@ describe('JobRoleService', function () {
         mock.onGet(URL).reply(500);
 
         try {
-          await getJobRoles();
+          await getJobRoles(token);
           throw new Error('Error not thrown');
         } catch (e) {
           expect(e.message).to.equal('Failed to get Job Roles');
@@ -61,7 +63,7 @@ describe('JobRoleService', function () {
 
         mock.onGet(URL + "1").reply(200, data);
 
-        const result = await getJobRoleById("1");
+        const result = await getJobRoleById("1", "token");
 
         expect(result.id).to.deep.equal(jobRolesResponse.id);
         expect(result.bandName).to.deep.equal(jobRolesResponse.bandName);
@@ -79,7 +81,7 @@ describe('JobRoleService', function () {
         mock.onGet(URL + "1").reply(500);
 
       try {
-        await getJobRoleById("1");
+        await getJobRoleById("1", "token");
       } catch (e) {
         expect(e.message).to.equal('Failed to get Job Role');
         return;
@@ -91,7 +93,7 @@ describe('JobRoleService', function () {
         mock.onGet(URL + "1").reply(404);
 
       try {
-        await getJobRoleById("1");
+        await getJobRoleById("1", "token");
       } catch (e) {
         expect(e.message).to.equal('Job Role does not exist');
         return;

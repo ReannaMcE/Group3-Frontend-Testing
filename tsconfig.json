@@ -12,7 +12,7 @@
     "include": [
         "src/**/*"
 , "public/scripts/map.js"    ],
-    "exclude": [
+        "exclude": [
         "./node_modules/**/*",
         "./dist/**/*"
     ]

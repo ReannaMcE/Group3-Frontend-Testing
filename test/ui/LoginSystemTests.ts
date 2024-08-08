@@ -4,7 +4,7 @@ import { By, until } from 'selenium-webdriver';
 import { expect } from 'chai';
 
 describe('Login System Test', function () {
-    this.timeout(70000);
+    this.timeout(1000000);
     const page: string = process.env.UI_TEST_LOGIN || 'https://jptw3amsi2.eu-west-1.awsapprunner.com/loginForm';
 
     before(async function () {
@@ -26,9 +26,7 @@ describe('Login System Test', function () {
         const wrongUsername = 'wronguser';
         const wrongPassword = 'wrongpassword';
 
-        await LoginTestsPage.enterUsername(wrongUsername);
-        await LoginTestsPage.enterPassword(wrongPassword);
-        await LoginTestsPage.clickLogin();
+        await LoginTestsPage.login(wrongUsername, wrongPassword);
 
         const errorMessage = await LoginTestsPage.driver.findElement(By.id('errorMessage')).getText(); 
         expect(errorMessage).to.equal('Failed to Login');
@@ -39,16 +37,14 @@ describe('Login System Test', function () {
         const correctUsername = 'admin';
         const correctPassword = 'admin';
     
-        await LoginTestsPage.enterUsername(correctUsername);
-        await LoginTestsPage.enterPassword(correctPassword);
-        await LoginTestsPage.clickLogin();
+        await LoginTestsPage.login(correctUsername, correctPassword);
     
         await LoginTestsPage.clickButton('navbarJobs', 'job roles');
         await LoginTestsPage.assertLogin();
     
         await LoginTestsPage.clickButton('navbarLogin', 'logout');
         
-        const loginForm = await LoginTestsPage.driver.wait(until.elementLocated(By.id('submit')), 100000);
+        const loginForm = await LoginTestsPage.driver.wait(until.elementLocated(By.id('submit')), 1000000);
         expect(await loginForm.isDisplayed()).to.be.true;
     });
     

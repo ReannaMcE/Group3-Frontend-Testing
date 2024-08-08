@@ -9,7 +9,7 @@ export const getHomePage = async (req: express.Request, res: express.Response): 
  
 export const getAllJobRoles = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.render('jobRolesList.html', { baseURL, roles: await getJobRoles() });
+        res.render('jobRolesList.html', { baseURL, roles: await getJobRoles(req.session.token) });
     } catch (e) {
         res.locals.errormessage = e.message;
         res.render('jobRolesList.html');
@@ -18,7 +18,7 @@ export const getAllJobRoles = async (req: express.Request, res: express.Response
 
 export const getSingleJobRole = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        res.render('jobRoleDetail.html', { baseURL, jobRole: await getJobRoleById(req.params.id) });
+        res.render('jobRoleDetail.html', { baseURL, jobRole: await getJobRoleById(req.params.id, req.session.token) });
     } catch (e) {
         res.locals.errormessage = e.message;
         res.render('jobRolesList.html');
