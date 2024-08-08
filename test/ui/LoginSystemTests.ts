@@ -26,9 +26,7 @@ describe('Login System Test', function () {
         const wrongUsername = 'wronguser';
         const wrongPassword = 'wrongpassword';
 
-        await LoginTestsPage.enterUsername(wrongUsername);
-        await LoginTestsPage.enterPassword(wrongPassword);
-        await LoginTestsPage.clickLogin();
+        await LoginTestsPage.login(wrongUsername, wrongPassword);
 
         const errorMessage = await LoginTestsPage.driver.findElement(By.id('errorMessage')).getText(); 
         expect(errorMessage).to.equal('Failed to Login');
@@ -39,9 +37,7 @@ describe('Login System Test', function () {
         const correctUsername = 'admin';
         const correctPassword = 'admin';
     
-        await LoginTestsPage.enterUsername(correctUsername);
-        await LoginTestsPage.enterPassword(correctPassword);
-        await LoginTestsPage.clickLogin();
+        await LoginTestsPage.login(correctUsername, correctPassword);
     
         await LoginTestsPage.clickButton('navbarJobs', 'job roles');
         await LoginTestsPage.assertLogin();

@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { WebDriver, Builder, WebElement, By, until } from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 
@@ -42,6 +43,18 @@ export class basepage {
         return this.driver.findElement(By.id(id));
     }
 
+    public static async LoginUserEmail(): Promise<WebElement> {
+        return this.driver.findElement(By.id("username"));
+    }
+
+    public static async LoginUserPassword(): Promise<WebElement> {
+        return this.driver.findElement(By.id("password"));
+    }
+
+    public static async getLoginButton(): Promise<WebElement> {
+        return this.driver.findElement(By.id('submit'));
+    }
+
      // Click links --------------------------------------------------------------------------------
      public static async clickLink(id: string): Promise<void> {
         try {
@@ -66,6 +79,18 @@ export class basepage {
         }
     }
 
+    // Login method --------------------------------------------------------------------------------
+    public static async login(username:string, password:string): Promise<void> {
+        const user = await this.LoginUserEmail();
+        await user.sendKeys(username);
+
+        const pass = await this.LoginUserPassword();
+        await pass.sendKeys(password);
+
+        const button = await this.getLoginButton();
+        await button.click();
+    }
+
 
     // Assertions --------------------------------------------------------------------------------
     public static async assertAndGoBack(actualUrl: string, page: string): Promise<void> {
@@ -75,6 +100,11 @@ export class basepage {
         }, 20000);
 
         await this.loadPage(page);
+    }
+
+    public static async assertLoginShows(): Promise<void> {
+        const loginButton = await this.driver.findElement(By.id('submit'));
+        expect(await loginButton.isDisplayed()).to.be.true;
     }
 
 
