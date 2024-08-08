@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="./css/loginStyle.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="icon" type="image/x-icon" href="https://companieslogo.com/img/orig/KNOS.L-8a0d29cc.png?t=1720244492">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/2ea65b5d39.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+            <div class="container" id="loginForm">
+                <div class="screen">
+                    <div class="screen__content">
+                    
+                        <form class="form" action="/loginForm" method="post">
+                            {% if errormessage %}
+                                <div class="error-container" id="errorMessageDiv">
+                                    <p class="error-message" id="errorMessage">{{ errormessage }}</p>
+                                </div>
+                            {% endif %}
+                            <div class="login__field" id="loginDiv1">
+                                <label for="username" class="visually-hidden" id="usernameTitle">Username</label>
+                                <i class="fa-solid fa-envelope" style = "color: #252d4f;"></i>
+
+                                <input id="username" name="username" value="{{username}}" type="text" class="login__input" placeholder="Email">
+                            </div>
+                           
+                            <div class="login__field" id="loginDiv2">
+                                <label for="password" class="visually-hidden" id="passwordTitle">Password</label>
+                                <i class="fa-solid fa-lock" style = "color: #252d4f;"></i>
+                                <input id="password" name="password" value="{{password}}" type="password" class="login__input" placeholder="Password">
+                            </div>
+                            <button id="submit" class="button login__submit">
+                                <span  id="submitButton" class="button__text">Log In Now</span>
+                                <i class="button__icon fas fa-chevron-right" id="submitButton"></i>
+                            </button>               
+                        </form>
+                    </div>
+                    <div class="screen__background">
+                        <img src="./img/loginBackground.jpg" id="loginBackgroundImg" alt = "loginBackground" style="object-fit: contain;">
+                        <span class="screen__background__shape screen__background__shape1"></span>
+                    </div>      
+                </div>
+            </div>
+    
+     </body>
+
+</html>
