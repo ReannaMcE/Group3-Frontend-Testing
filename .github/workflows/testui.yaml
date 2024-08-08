@@ -1,9 +1,6 @@
 name: Run UI Tests
 
 on: 
-  pull_request:
-    branches:
-    - main
   schedule:
     - cron: '0 0 * * *' # This runs the workflow at midnight UTC every day
 
