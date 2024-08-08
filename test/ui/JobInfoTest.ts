@@ -24,9 +24,6 @@ describe('View Job Info Tests', function () {
     it('Job should load information when clicked', async function name() {
         try {
             await JobInfoTestPage.loadPage(page);
-            await JobInfoTestPage.assertLoginShows();
-            await JobInfoTestPage.login('admin', 'admin');
-            await JobInfoTestPage.loadPage(page);
             await JobInfoTestPage.clickJob("jobRoleNameLink_3");
             await JobInfoTestPage.assertJobHasClosingDate();
         } catch (error) {
@@ -37,9 +34,6 @@ describe('View Job Info Tests', function () {
 
     it('Job title matches when job is clicked', async function () { 
         try {
-            await JobInfoTestPage.loadPage(page);
-            await JobInfoTestPage.assertLoginShows();
-            await JobInfoTestPage.login('admin', 'admin');
             await JobInfoTestPage.loadPage(page);
             const jobTitleBeforeClick:string = await JobInfoTestPage.JobTitleBeforeClick("jobRoleNameLink_3");
             await JobInfoTestPage.clickJob("jobRoleNameLink_3");

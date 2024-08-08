@@ -87,7 +87,7 @@ export class basepage {
         const pass = await this.LoginUserPassword();
         await pass.sendKeys(password);
 
-        const button = await this.getLoginButton();
+        const button = await this.driver.findElement(By.id('submit'));
         await button.click();
     }
 
@@ -103,7 +103,7 @@ export class basepage {
     }
 
     public static async assertLoginShows(): Promise<void> {
-        const loginButton = await this.driver.findElement(By.id('submit'));
+        const loginButton = await this.driver.wait(until.elementLocated(By.id('submit')),10000);
         expect(await loginButton.isDisplayed()).to.be.true;
     }
 

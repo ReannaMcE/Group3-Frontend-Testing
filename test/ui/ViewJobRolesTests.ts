@@ -24,9 +24,6 @@ describe('View Job Roles Tests', function () {
     it('Footer links should work', async function () {
         try {
             await ViewJobRolesTestsPage.loadPage(page);
-            await ViewJobRolesTestsPage.assertLoginShows();
-            await ViewJobRolesTestsPage.login('admin', 'admin');
-            await ViewJobRolesTestsPage.loadPage(page);
             await ViewJobRolesTestsPage.clickFacebook();
             await ViewJobRolesTestsPage.assertFBAndGoBack(page);
             await ViewJobRolesTestsPage.clickTwitter();
@@ -42,17 +39,11 @@ describe('View Job Roles Tests', function () {
 
     it('Job status should always be open', async function () {
         await ViewJobRolesTestsPage.loadPage(page);
-        await ViewJobRolesTestsPage.assertLoginShows();
-        await ViewJobRolesTestsPage.login('admin', 'admin');
-        await ViewJobRolesTestsPage.loadPage(page);
         await ViewJobRolesTestsPage.assertJobStatusOpen();
     });
 
     it('Header buttons should work', async function () {
         try {
-            await ViewJobRolesTestsPage.loadPage(page);
-            await ViewJobRolesTestsPage.assertLoginShows();
-            await ViewJobRolesTestsPage.login('admin', 'admin');
             await ViewJobRolesTestsPage.loadPage(page);
             await ViewJobRolesTestsPage.clickButton('navbarHome', 'home');
 
