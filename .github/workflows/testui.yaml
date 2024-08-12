@@ -1,10 +1,7 @@
 name: Run UI Tests
 
 on: 
-  schedule:
-    - cron: '0 0 * * *' # This runs the workflow at midnight UTC every day
-    - cron: '56 14 * * *'
-    - cron: '56 15 * * *'
+  pull_request
 jobs:
   test:
     runs-on: ubuntu-latest
